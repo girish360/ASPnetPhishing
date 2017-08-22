@@ -209,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Invoice.sql" />
+    <Content Include="App_Data\Payment.sql" />
     <Content Include="App_Data\Phishing.mdf" />
     <Content Include="App_Data\Phishing_log.ldf">
       <DependentUpon>Phishing.mdf</DependentUpon>
