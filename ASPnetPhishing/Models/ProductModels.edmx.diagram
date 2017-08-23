@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="63c1c2764f4a42bbb95e6046b419ea73" Name="Diagram1">
+        <EntityTypeShape EntityType="PhishingModel.Invoice" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhishingModel.LineItem" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhishingModel.Payment" Width="1.5" PointX="2.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhishingModel.Product" Width="1.5" PointX="6" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhishingModel.User" Width="1.5" PointX="0.5" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="PhishingModel.InvoiceLineItem" />
+        <AssociationConnector Association="PhishingModel.LineItemProduct" />
+        <AssociationConnector Association="PhishingModel.UserInvoice" />
+        <AssociationConnector Association="PhishingModel.PaymentInvoice" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
