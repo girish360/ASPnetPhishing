@@ -40,7 +40,7 @@ USE [$(DatabaseName)];
 
 
 GO
-PRINT N'Rename refactoring operation with key  is skipped, element [dbo].[Table].[Id] (SqlSimpleColumn) will not be renamed to UserId';
+PRINT N'Rename refactoring operation with key  is skipped, element [dbo].[Table].[Id] (SqlSimpleColumn) will not be renamed to PaymentId';
 
 
 GO
@@ -55,21 +55,21 @@ SET TRANSACTION ISOLATION LEVEL READ COMMITTED
 GO
 BEGIN TRANSACTION
 GO
-PRINT N'Creating [dbo].[Users]...';
+PRINT N'Creating [dbo].[Payment]...';
 
 
 GO
-CREATE TABLE [dbo].[Users] (
-    [UserId]  INT          NOT NULL,
-    [FName]   VARCHAR (50) NOT NULL,
-    [LName]   VARCHAR (50) NOT NULL,
-    [Address] VARCHAR (50) NOT NULL,
-    [City]    VARCHAR (50) NOT NULL,
-    [State]   VARCHAR (2)  NOT NULL,
-    [Zip]     VARCHAR (10) NOT NULL,
-    [Phone]   VARCHAR (10) NOT NULL,
-    [Email]   VARCHAR (50) NOT NULL,
-    PRIMARY KEY CLUSTERED ([UserId] ASC)
+CREATE TABLE [dbo].[Payment] (
+    [PaymentId]      INT          NOT NULL,
+    [InvoiceID]      INT          NOT NULL,
+    [CardNum]        VARCHAR (16) NOT NULL,
+    [CCV]            VARCHAR (3)  NOT NULL,
+    [ExpDate]        DATE         NOT NULL,
+    [BillingAddress] VARCHAR (50) NOT NULL,
+    [BillingCity]    VARCHAR (50) NOT NULL,
+    [BillingState]   VARCHAR (2)  NOT NULL,
+    [BillingZip]     VARCHAR (10) NOT NULL,
+    PRIMARY KEY CLUSTERED ([PaymentId] ASC)
 );
 
 

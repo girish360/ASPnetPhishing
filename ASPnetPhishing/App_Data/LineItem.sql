@@ -40,7 +40,7 @@ USE [$(DatabaseName)];
 
 
 GO
-PRINT N'Rename refactoring operation with key  is skipped, element [dbo].[Table].[Id] (SqlSimpleColumn) will not be renamed to UserId';
+PRINT N'Rename refactoring operation with key  is skipped, element [dbo].[Table].[Id] (SqlSimpleColumn) will not be renamed to LineItemId';
 
 
 GO
@@ -55,21 +55,17 @@ SET TRANSACTION ISOLATION LEVEL READ COMMITTED
 GO
 BEGIN TRANSACTION
 GO
-PRINT N'Creating [dbo].[Users]...';
+PRINT N'Creating [dbo].[LineItem]...';
 
 
 GO
-CREATE TABLE [dbo].[Users] (
-    [UserId]  INT          NOT NULL,
-    [FName]   VARCHAR (50) NOT NULL,
-    [LName]   VARCHAR (50) NOT NULL,
-    [Address] VARCHAR (50) NOT NULL,
-    [City]    VARCHAR (50) NOT NULL,
-    [State]   VARCHAR (2)  NOT NULL,
-    [Zip]     VARCHAR (10) NOT NULL,
-    [Phone]   VARCHAR (10) NOT NULL,
-    [Email]   VARCHAR (50) NOT NULL,
-    PRIMARY KEY CLUSTERED ([UserId] ASC)
+CREATE TABLE [dbo].[LineItem] (
+    [LineItemId] INT   NOT NULL,
+    [InvoiceId]  INT   NOT NULL,
+    [ProductId]  INT   NOT NULL,
+    [Qty]        INT   NOT NULL,
+    [LineTotal]  MONEY NOT NULL,
+    PRIMARY KEY CLUSTERED ([LineItemId] ASC)
 );
 
 
