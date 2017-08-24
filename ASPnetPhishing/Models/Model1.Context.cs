@@ -13,10 +13,10 @@ namespace ASPnetPhishing.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PhishingEntities3 : DbContext
+    public partial class Entities : DbContext
     {
-        public PhishingEntities3()
-            : base("name=PhishingEntities3")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -25,10 +25,6 @@ namespace ASPnetPhishing.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Invoice> Invoices { get; set; }
-        public virtual DbSet<LineItem> LineItems { get; set; }
-        public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<User> Users { get; set; }
     }
 }

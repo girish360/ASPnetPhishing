@@ -10,6 +10,7 @@ namespace ASPnetPhishing.Controllers
     {
         public ActionResult Index()
         {
+            
             return View();
         }
 
