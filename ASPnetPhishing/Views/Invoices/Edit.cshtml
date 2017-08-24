@@ -5,8 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
-
+<h2>Invoices - Edit</h2>
 
 @using (Html.BeginForm())
 {
@@ -19,15 +18,15 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DateTime, "Invoice Date", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DateTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateTime, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.DateTime, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                @*@Html.ValidationMessageFor(model => model.DateTime, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Total, "Invoice Total", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
@@ -35,7 +34,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UserID, "UserID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UserID, "Customer", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("UserID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
@@ -53,7 +52,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

@@ -12,7 +12,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
 {
     public class InvoicesController : Controller
     {
-        private Admin db = new Admin();
+        private AdminConnection db = new AdminConnection();
 
         // GET: Invoices
         public ActionResult Index()

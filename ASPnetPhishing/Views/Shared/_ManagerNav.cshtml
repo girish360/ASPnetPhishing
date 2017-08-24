@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Invoices", "Index", "Invoices")</li>
+            <li>@Html.ActionLink("LineItems", "Index", "LineItems")</li>
+            <li>@Html.ActionLink("Payments", "Index", "Payments")</li>
+            <li>@Html.ActionLink("Products", "Index", "Products")</li>
+            <li>@Html.ActionLink("Categories", "Index", "ProductCategories")</li>
+            <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+            <li>@Html.ActionLink("Users", "Index", "Users")</li>
+        </ul>
+    </div>
+}

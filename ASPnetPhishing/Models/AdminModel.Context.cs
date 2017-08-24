@@ -13,10 +13,10 @@ namespace ASPnetPhishing.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Admin : DbContext
+    public partial class AdminConnection : DbContext
     {
-        public Admin()
-            : base("name=Admin")
+        public AdminConnection()
+            : base("name=AdminConnection")
         {
         }
     

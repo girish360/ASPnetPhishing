@@ -12,7 +12,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.DateTime)
+            Invoice Date
         </dt>
 
         <dd>
@@ -20,7 +20,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Total)
+            Invoice Total
         </dt>
 
         <dd>
@@ -28,7 +28,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+            Customer Email
         </dt>
 
         <dd>
@@ -36,6 +36,12 @@
         </dd>
 
     </dl>
+
+    @*********************************************************
+        lineitem details
+        **********************************************************@
+
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

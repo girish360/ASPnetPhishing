@@ -6,3 +6,4 @@
     PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [fk_invoice_user] FOREIGN KEY ([UserID]) REFERENCES [dbo].[AspNetUsers] ([Id])
 );
+

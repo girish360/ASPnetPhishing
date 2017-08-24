@@ -19,12 +19,18 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Product", "Index", "Products")</li>
                     <li>@Html.ActionLink("Permit", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Manage", "Index", "Manager")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
+
+    @using Microsoft.AspNet.Identity
+    @if (Request.IsAuthenticated)
+    {
+        @Html.Partial("_ManagerNav") 
+    }
+
     <div class="container body-content">
         @RenderBody()
         <hr />

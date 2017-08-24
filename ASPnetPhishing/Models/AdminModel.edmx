@@ -50,7 +50,7 @@
           <Key>
             <PropertyRef Name="LineItemId" />
           </Key>
-          <Property Name="LineItemId" Type="int" Nullable="false" />
+          <Property Name="LineItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="InvoiceId" Type="int" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="Qty" Type="int" Nullable="false" />
@@ -60,7 +60,7 @@
           <Key>
             <PropertyRef Name="PaymentId" />
           </Key>
-          <Property Name="PaymentId" Type="int" Nullable="false" />
+          <Property Name="PaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="InvoiceID" Type="int" Nullable="false" />
           <Property Name="CardNum" Type="varchar" MaxLength="16" Nullable="false" />
           <Property Name="CCV" Type="varchar" MaxLength="3" Nullable="false" />
@@ -263,7 +263,7 @@
           <Key>
             <PropertyRef Name="LineItemId" />
           </Key>
-          <Property Name="LineItemId" Type="Int32" Nullable="false" />
+          <Property Name="LineItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="InvoiceId" Type="Int32" Nullable="false" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="Qty" Type="Int32" Nullable="false" />
@@ -275,7 +275,7 @@
           <Key>
             <PropertyRef Name="PaymentId" />
           </Key>
-          <Property Name="PaymentId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="InvoiceID" Type="Int32" Nullable="false" />
           <Property Name="CardNum" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CCV" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
@@ -372,7 +372,7 @@
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Admin" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="AdminConnection" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="Invoices" EntityType="Self.Invoice" />
@@ -410,7 +410,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Admin">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="AdminConnection">
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="Model.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">

@@ -199,15 +199,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminControllers\InvoicesController.cs" />
-    <Compile Include="Controllers\AdminControllers\LineItemsController.cs" />
-    <Compile Include="Controllers\AdminControllers\PaymentsController.cs" />
-    <Compile Include="Controllers\AdminControllers\ProductCategoriesController.cs" />
-    <Compile Include="Controllers\AdminControllers\ProductsController.cs" />
-    <Compile Include="Controllers\AdminControllers\RolesController.cs" />
-    <Compile Include="Controllers\AdminControllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -304,7 +297,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -338,53 +333,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Delete.cshtml" />
-    <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Products\Cart.cshtml" />
-    <Content Include="Views\AspNetRoles\Create.cshtml" />
-    <Content Include="Views\AspNetRoles\Delete.cshtml" />
-    <Content Include="Views\AspNetRoles\Details.cshtml" />
-    <Content Include="Views\AspNetRoles\Edit.cshtml" />
-    <Content Include="Views\AspNetRoles\Index.cshtml" />
-    <Content Include="Views\AspNetUsers\Create.cshtml" />
-    <Content Include="Views\AspNetUsers\Delete.cshtml" />
-    <Content Include="Views\AspNetUsers\Details.cshtml" />
-    <Content Include="Views\AspNetUsers\Edit.cshtml" />
-    <Content Include="Views\AspNetUsers\Index.cshtml" />
+    <Content Include="Views\Shared\_ManagerNav.cshtml" />
     <Content Include="Views\Invoices\Create.cshtml" />
     <Content Include="Views\Invoices\Delete.cshtml" />
     <Content Include="Views\Invoices\Details.cshtml" />
     <Content Include="Views\Invoices\Edit.cshtml" />
     <Content Include="Views\Invoices\Index.cshtml" />
-    <Content Include="Views\LineItems\Create.cshtml" />
-    <Content Include="Views\LineItems\Delete.cshtml" />
-    <Content Include="Views\LineItems\Details.cshtml" />
-    <Content Include="Views\LineItems\Edit.cshtml" />
-    <Content Include="Views\LineItems\Index.cshtml" />
-    <Content Include="Views\Payments\Create.cshtml" />
-    <Content Include="Views\Payments\Delete.cshtml" />
-    <Content Include="Views\Payments\Details.cshtml" />
-    <Content Include="Views\Payments\Edit.cshtml" />
-    <Content Include="Views\Payments\Index.cshtml" />
-    <Content Include="Views\Roles\Create.cshtml" />
-    <Content Include="Views\Roles\Delete.cshtml" />
-    <Content Include="Views\Roles\Details.cshtml" />
-    <Content Include="Views\Roles\Edit.cshtml" />
-    <Content Include="Views\Roles\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\ProductCategories\Create.cshtml" />
-    <Content Include="Views\ProductCategories\Delete.cshtml" />
-    <Content Include="Views\ProductCategories\Details.cshtml" />
-    <Content Include="Views\ProductCategories\Edit.cshtml" />
-    <Content Include="Views\ProductCategories\Index.cshtml" />
-    <Content Include="Views\Manager\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
