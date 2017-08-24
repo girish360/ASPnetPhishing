@@ -199,6 +199,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminControllers\InvoicesController.cs" />
+    <Compile Include="Controllers\AdminControllers\LineItemsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -339,6 +340,11 @@
     <Content Include="Views\Invoices\Details.cshtml" />
     <Content Include="Views\Invoices\Edit.cshtml" />
     <Content Include="Views\Invoices\Index.cshtml" />
+    <Content Include="Views\LineItems\Create.cshtml" />
+    <Content Include="Views\LineItems\Delete.cshtml" />
+    <Content Include="Views\LineItems\Details.cshtml" />
+    <Content Include="Views\LineItems\Edit.cshtml" />
+    <Content Include="Views\LineItems\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

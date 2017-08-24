@@ -11,6 +11,7 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class LineItem
     {
@@ -18,8 +19,10 @@ namespace ASPnetPhishing.Models
         public int InvoiceId { get; set; }
         public int ProductId { get; set; }
         public int Qty { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal LineTotal { get; set; }
-    
+
+
         public virtual Invoice Invoice { get; set; }
         public virtual Product Product { get; set; }
     }
