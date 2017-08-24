@@ -25,6 +25,9 @@
             @Html.DisplayNameFor(model => model.Cost)
         </th>
         <th>
+            Image
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ProductCategory.CategoryName)
         </th>
         <th></th>
@@ -43,6 +46,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Cost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImageFilename)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProductCategory.CategoryName)

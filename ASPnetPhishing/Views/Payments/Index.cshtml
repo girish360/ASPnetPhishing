@@ -36,6 +36,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Invoice.UserID)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InvoiceID)
+        </th>
         <th></th>
     </tr>
 
@@ -64,6 +67,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Invoice.UserID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InvoiceID)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.PaymentId }) |
