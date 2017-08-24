@@ -1,0 +1,51 @@
+﻿@model ASPnetPhishing.Models.LineItem
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LineItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Qty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Qty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LineTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LineTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Invoice.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Invoice.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LineItemId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
