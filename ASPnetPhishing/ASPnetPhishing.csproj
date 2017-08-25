@@ -261,6 +261,7 @@
     <Content Include="App_Data\Payment.sql" />
     <Content Include="App_Data\Product.sql" />
     <Content Include="App_Data\ProductCategory.sql" />
+    <Content Include="App_Data\Shipping.sql" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\XMLFile1.xml" />
