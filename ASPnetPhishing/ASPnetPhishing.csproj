@@ -202,6 +202,8 @@
     <Compile Include="Controllers\AdminControllers\InvoicesController.cs" />
     <Compile Include="Controllers\AdminControllers\LineItemsController.cs" />
     <Compile Include="Controllers\AdminControllers\PaymentsController.cs" />
+    <Compile Include="Controllers\AdminControllers\ProductCategoriesController.cs" />
+    <Compile Include="Controllers\AdminControllers\ProductsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -352,6 +354,16 @@
     <Content Include="Views\Payments\Details.cshtml" />
     <Content Include="Views\Payments\Edit.cshtml" />
     <Content Include="Views\Payments\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\ProductCategories\Create.cshtml" />
+    <Content Include="Views\ProductCategories\Delete.cshtml" />
+    <Content Include="Views\ProductCategories\Details.cshtml" />
+    <Content Include="Views\ProductCategories\Edit.cshtml" />
+    <Content Include="Views\ProductCategories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
