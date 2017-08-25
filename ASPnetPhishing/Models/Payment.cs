@@ -14,6 +14,12 @@ namespace ASPnetPhishing.Models
     
     public partial class Payment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Payment()
+        {
+            this.Invoices = new HashSet<Invoice>();
+        }
+    
         public int PaymentId { get; set; }
         public int InvoiceID { get; set; }
         public string CardNum { get; set; }
@@ -24,6 +30,8 @@ namespace ASPnetPhishing.Models
         public string BillingState { get; set; }
         public string BillingZip { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual Invoice Invoice { get; set; }
     }
 }

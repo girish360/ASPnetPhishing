@@ -10,118 +10,112 @@ using ASPnetPhishing.Models;
 
 namespace ASPnetPhishing.Controllers.AdminControllers
 {
-    public class InvoicesController : Controller
+    public class ShippingsController : Controller
     {
         private AdminConnection db = new AdminConnection();
 
-        // GET: Invoices
+        // GET: Shippings
         public ActionResult Index()
         {
-            var invoices = db.Invoices.Include(i => i.AspNetUser);
-            return View(invoices.ToList());
+            var shippings = db.Shippings.Include(s => s.AspNetUser);
+            return View(shippings.ToList());
         }
 
-        // GET: Invoices/Details/5
+        // GET: Shippings/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Invoice invoice = db.Invoices.Find(id);
-            if (invoice == null)
+            Shipping shipping = db.Shippings.Find(id);
+            if (shipping == null)
             {
                 return HttpNotFound();
             }
-            return View(invoice);
+            return View(shipping);
         }
 
-        // GET: Invoices/Create
+        // GET: Shippings/Create
         public ActionResult Create()
         {
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email");
+            ViewBag.CustomerId = new SelectList(db.AspNetUsers, "Id", "Email");
             return View();
         }
 
-        // POST: Invoices/Create
+        // POST: Shippings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,DateTime,Total,UserID")] Invoice invoice)
+        public ActionResult Create([Bind(Include = "Id,CustomerId,FirstName,LastName,ShippingAddress,ShippingCity,ShippingState,ShippingZipCode,ShippingPhone,ShippingEmail")] Shipping shipping)
         {
             if (ModelState.IsValid)
             {
-                db.Invoices.Add(invoice);
+                db.Shippings.Add(shipping);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", invoice.AspNetUser.Email);
-            return View(invoice);
+            ViewBag.CustomerId = new SelectList(db.AspNetUsers, "Id", "Email", shipping.CustomerId);
+            return View(shipping);
         }
 
-        // GET: Invoices/Edit/5
+        // GET: Shippings/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Invoice invoice = db.Invoices.Find(id);
-            if (invoice == null)
+            Shipping shipping = db.Shippings.Find(id);
+            if (shipping == null)
             {
                 return HttpNotFound();
             }
-
-            //var query = ((from s in db.Shippings
-            //              select s.))
-
-
-            //ViewBag.ShippingID = new SelectList(db.Shippings, "Id", "FirstName, LastName", invoice.ShippingId);
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", invoice.UserID);
-            return View(invoice);
+            ViewBag.CustomerId = new SelectList(db.AspNetUsers, "Id", "Email", shipping.CustomerId);
+            return View(shipping);
         }
 
-        // POST: Invoices/Edit/5
+        // POST: Shippings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,DateTime,Total,UserID")] Invoice invoice)
+        public ActionResult Edit([Bind(Include = "Id,CustomerId,FirstName,LastName,ShippingAddress,ShippingCity,ShippingState,ShippingZipCode,ShippingPhone,ShippingEmail")] Shipping shipping)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(invoice).State = EntityState.Modified;
+                db.Entry(shipping).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", invoice.UserID);
-            return View(invoice);
+            ViewBag.CustomerId = new SelectList(db.AspNetUsers, "Id", "Email", shipping.CustomerId);
+            return View(shipping);
         }
 
-        // GET: Invoices/Delete/5
+        // GET: Shippings/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Invoice invoice = db.Invoices.Find(id);
-            if (invoice == null)
+            Shipping shipping = db.Shippings.Find(id);
+            if (shipping == null)
             {
                 return HttpNotFound();
             }
-            return View(invoice);
+            return View(shipping);
         }
 
-        // POST: Invoices/Delete/5
+        // POST: Shippings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Invoice invoice = db.Invoices.Find(id);
-            db.Invoices.Remove(invoice);
+            Shipping shipping = db.Shippings.Find(id);
+            db.Shippings.Remove(shipping);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<ASPnetPhishing.Models.Shipping>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Customer
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            Last Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            City
+        </th>
+        <th>
+            State
+        </th>
+        <th>
+            Zip Code
+        </th>
+        <th>
+            Phone Number
+        </th>
+        <th>
+             Confirmation Email
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShippingAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShippingCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShippingState)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShippingZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShippingPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShippingEmail)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

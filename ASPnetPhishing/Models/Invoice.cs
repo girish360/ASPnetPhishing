@@ -11,7 +11,6 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Invoice
     {
@@ -23,13 +22,15 @@ namespace ASPnetPhishing.Models
         }
     
         public int Id { get; set; }
-        [DataType(DataType.Date)]
         public System.DateTime DateTime { get; set; }
-        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Total { get; set; }
         public string UserID { get; set; }
+        public Nullable<int> PaymentId { get; set; }
+        public Nullable<int> ShippingId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Payment Payment { get; set; }
+        public virtual Shipping Shipping { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LineItem> LineItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

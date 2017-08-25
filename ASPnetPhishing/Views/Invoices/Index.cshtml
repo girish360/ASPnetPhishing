@@ -19,7 +19,34 @@
             Invoice Total
         </th>
         <th>
-            Customer Email
+            Customer 
+        </th>
+        <th>
+            Payment Number
+        </th>
+        <th>
+            Shipping First Name
+        </th>
+        <th>
+            Shipping Last Name
+        </th>
+        <th>
+            Shipping Address
+        </th>
+        <th>
+            City
+        </th>
+        <th>
+            State
+        </th>
+        <th>
+            Zip Code
+        </th>
+        <th>
+            Shipping Phone
+        </th>
+        <th>
+            Confirmation Email
         </th>
         <th></th>
     </tr>
@@ -34,6 +61,33 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shipping.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shipping.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shipping.ShippingAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shipping.ShippingCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shipping.ShippingState)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shipping.ShippingZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shipping.ShippingPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shipping.ShippingEmail)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

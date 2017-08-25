@@ -12,18 +12,27 @@ namespace ASPnetPhishing.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetRole
+    public partial class Shipping
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AspNetRole()
+        public Shipping()
         {
-            this.AspNetUsers = new HashSet<AspNetUser>();
+            this.Invoices = new HashSet<Invoice>();
         }
     
-        public string Id { get; set; }
-        public string Name { get; set; }
+        public int Id { get; set; }
+        public string CustomerId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string ShippingAddress { get; set; }
+        public string ShippingCity { get; set; }
+        public string ShippingState { get; set; }
+        public string ShippingZipCode { get; set; }
+        public string ShippingPhone { get; set; }
+        public string ShippingEmail { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
     }
 }

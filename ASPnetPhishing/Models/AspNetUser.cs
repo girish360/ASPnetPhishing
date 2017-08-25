@@ -18,7 +18,7 @@ namespace ASPnetPhishing.Models
         public AspNetUser()
         {
             this.Invoices = new HashSet<Invoice>();
-            this.AspNetRoles = new HashSet<AspNetRole>();
+            this.Shippings = new HashSet<Shipping>();
         }
     
         public string Id { get; set; }
@@ -37,6 +37,6 @@ namespace ASPnetPhishing.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoice> Invoices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        public virtual ICollection<Shipping> Shippings { get; set; }
     }
 }

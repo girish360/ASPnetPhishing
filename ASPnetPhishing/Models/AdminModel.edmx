@@ -5,21 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="AspNetRoles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AspNetUserRoles">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
@@ -45,6 +30,8 @@
           <Property Name="DateTime" Type="datetime" Nullable="false" />
           <Property Name="Total" Type="money" Nullable="false" />
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PaymentId" Type="int" />
+          <Property Name="ShippingId" Type="int" />
         </EntityType>
         <EntityType Name="LineItem">
           <Key>
@@ -89,31 +76,42 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="CategoryName" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShippingAddress" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ShippingCity" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShippingState" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="ShippingZipCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ShippingPhone" Type="varchar" MaxLength="14" />
+          <Property Name="ShippingEmail" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="fk_invoice_payment">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetRoles">
-              <PropertyRef Name="Id" />
+            <Principal Role="Payment">
+              <PropertyRef Name="PaymentId" />
             </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="RoleId" />
+            <Dependent Role="Invoice">
+              <PropertyRef Name="PaymentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+        <Association Name="fk_invoice_shipping">
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="0..1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="Shipping">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="UserId" />
+            <Dependent Role="Invoice">
+              <PropertyRef Name="ShippingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -177,22 +175,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_shipping_aspnetuser">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Shipping">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LineItem" EntityType="Self.LineItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_invoice_payment" Association="Self.fk_invoice_payment">
+            <End Role="Payment" EntitySet="Payment" />
+            <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          <AssociationSet Name="fk_invoice_shipping" Association="Self.fk_invoice_shipping">
+            <End Role="Shipping" EntitySet="Shipping" />
+            <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
           <AssociationSet Name="fk_invoice_user" Association="Self.fk_invoice_user">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -214,20 +223,16 @@
             <End Role="ProductCategory" EntitySet="ProductCategory" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
+          <AssociationSet Name="fk_shipping_aspnetuser" Association="Self.fk_shipping_aspnetuser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Shipping" EntitySet="Shipping" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="AspNetRole">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
-        </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
@@ -245,7 +250,7 @@
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Invoices" Relationship="Self.fk_invoice_user" FromRole="AspNetUsers" ToRole="Invoice" />
-          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="Shippings" Relationship="Self.fk_shipping_aspnetuser" FromRole="AspNetUsers" ToRole="Shipping" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -255,7 +260,11 @@
           <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PaymentId" Type="Int32" />
+          <Property Name="ShippingId" Type="Int32" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.fk_invoice_user" FromRole="Invoice" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Payment" Relationship="Self.fk_invoice_payment" FromRole="Invoice" ToRole="Payment" />
+          <NavigationProperty Name="Shipping" Relationship="Self.fk_invoice_shipping" FromRole="Invoice" ToRole="Shipping" />
           <NavigationProperty Name="LineItems" Relationship="Self.fk_lineitem_invoice" FromRole="Invoice" ToRole="LineItem" />
           <NavigationProperty Name="Payments" Relationship="Self.fk_payment_invoice" FromRole="Invoice" ToRole="Payment" />
         </EntityType>
@@ -284,6 +293,7 @@
           <Property Name="BillingCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="BillingState" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="BillingZip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Invoices" Relationship="Self.fk_invoice_payment" FromRole="Payment" ToRole="Invoice" />
           <NavigationProperty Name="Invoice" Relationship="Self.fk_payment_invoice" FromRole="Payment" ToRole="Invoice" />
         </EntityType>
         <EntityType Name="Product">
@@ -308,6 +318,23 @@
           <Property Name="CategoryName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.fk_product_productcategory" FromRole="ProductCategory" ToRole="Product" />
         </EntityType>
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ShippingAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ShippingCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ShippingState" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ShippingZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ShippingPhone" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="ShippingEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_shipping_aspnetuser" FromRole="Shipping" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Invoices" Relationship="Self.fk_invoice_shipping" FromRole="Shipping" ToRole="Invoice" />
+        </EntityType>
         <Association Name="fk_invoice_user">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
@@ -317,6 +344,42 @@
             </Principal>
             <Dependent Role="Invoice">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_shipping_aspnetuser">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Shipping">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_invoice_payment">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="PaymentId" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="PaymentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_invoice_shipping">
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="0..1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipping">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="ShippingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -368,20 +431,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AspNetUserRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="AdminConnection" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="Invoices" EntityType="Self.Invoice" />
           <EntitySet Name="LineItems" EntityType="Self.LineItem" />
           <EntitySet Name="Payments" EntityType="Self.Payment" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
+          <EntitySet Name="Shippings" EntityType="Self.Shipping" />
           <AssociationSet Name="fk_invoice_user" Association="Self.fk_invoice_user">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="fk_shipping_aspnetuser" Association="Self.fk_shipping_aspnetuser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Shipping" EntitySet="Shippings" />
+          </AssociationSet>
+          <AssociationSet Name="fk_invoice_payment" Association="Self.fk_invoice_payment">
+            <End Role="Payment" EntitySet="Payments" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="fk_invoice_shipping" Association="Self.fk_invoice_shipping">
+            <End Role="Shipping" EntitySet="Shippings" />
             <End Role="Invoice" EntitySet="Invoices" />
           </AssociationSet>
           <AssociationSet Name="fk_lineitem_invoice" Association="Self.fk_lineitem_invoice">
@@ -400,10 +471,6 @@
             <End Role="ProductCategory" EntitySet="ProductCategories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -411,14 +478,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="AdminConnection">
-          <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="Model.AspNetRole">
-              <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="Model.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
@@ -444,6 +503,8 @@
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+                <ScalarProperty Name="ShippingId" ColumnName="ShippingId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -494,14 +555,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="AspNetUsers">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="Shippings">
+            <EntityTypeMapping TypeName="Model.Shipping">
+              <MappingFragment StoreEntitySet="Shipping">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
+                <ScalarProperty Name="ShippingCity" ColumnName="ShippingCity" />
+                <ScalarProperty Name="ShippingState" ColumnName="ShippingState" />
+                <ScalarProperty Name="ShippingZipCode" ColumnName="ShippingZipCode" />
+                <ScalarProperty Name="ShippingPhone" ColumnName="ShippingPhone" />
+                <ScalarProperty Name="ShippingEmail" ColumnName="ShippingEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -204,6 +204,7 @@
     <Compile Include="Controllers\AdminControllers\PaymentsController.cs" />
     <Compile Include="Controllers\AdminControllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\AdminControllers\ProductsController.cs" />
+    <Compile Include="Controllers\AdminControllers\ShippingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -225,9 +226,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AdminModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>AdminModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\AspNetUser.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
@@ -246,6 +244,9 @@
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductCategory.cs">
+      <DependentUpon>AdminModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shipping.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -365,6 +366,11 @@
     <Content Include="Views\ProductCategories\Details.cshtml" />
     <Content Include="Views\ProductCategories\Edit.cshtml" />
     <Content Include="Views\ProductCategories\Index.cshtml" />
+    <Content Include="Views\Shippings\Create.cshtml" />
+    <Content Include="Views\Shippings\Delete.cshtml" />
+    <Content Include="Views\Shippings\Details.cshtml" />
+    <Content Include="Views\Shippings\Edit.cshtml" />
+    <Content Include="Views\Shippings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
