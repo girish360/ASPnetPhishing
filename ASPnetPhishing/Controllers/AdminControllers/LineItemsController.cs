@@ -60,7 +60,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "UserID", lineItem.InvoiceId);
+            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "Id", lineItem.InvoiceId);
             ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", lineItem.ProductId);
             return View(lineItem);
         }
@@ -77,7 +77,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             {
                 return HttpNotFound();
             }
-            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "UserID", lineItem.InvoiceId);
+            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "Id", lineItem.InvoiceId);
             ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", lineItem.ProductId);
             return View(lineItem);
         }
@@ -97,7 +97,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "UserID", lineItem.InvoiceId);
+            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "Id", lineItem.InvoiceId);
             ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", lineItem.ProductId);
             return View(lineItem);
         }

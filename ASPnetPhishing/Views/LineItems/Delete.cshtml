@@ -12,8 +12,25 @@
     <h4>LineItem</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.Qty)
+            Invoice Number
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Invoice.Id)
+        </dd>
+
+        <dt>
+            Product Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+
+        <dt>
+            Qty
         </dt>
 
         <dd>
@@ -21,27 +38,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LineTotal)
+            Total
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.LineTotal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Invoice.UserID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Invoice.UserID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Product.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Product.Name)
         </dd>
 
     </dl>
