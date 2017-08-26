@@ -14,5 +14,5 @@
 	FROM Invoice i
 	INNER JOIN AspNetUsers u ON u.Id=i.UserID
 	INNER JOIN Shipping sh ON sh.Id=i.ShippingId
-	INNER JOIN PaymentRecord pr ON pr.InvoiceID=i.Id
+	INNER JOIN PaymentRecord pr ON pr.PaymentId=i.PaymentId
 	INNER JOIN CardRecord cr ON cr.Id=pr.CardRecordId 

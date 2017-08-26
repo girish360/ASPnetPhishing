@@ -17,111 +17,100 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         // GET: Invoices
         public ActionResult Index()
         {
-            var invoices = db.Invoices.Include(i => i.AspNetUser);
-            return View(invoices.ToList());
+            return View(db.vwInvoices.ToList());
         }
 
         // GET: Invoices/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(DateTime id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Invoice invoice = db.Invoices.Find(id);
-            if (invoice == null)
+            vwInvoice vwInvoice = db.vwInvoices.Find(id);
+            if (vwInvoice == null)
             {
                 return HttpNotFound();
             }
-            return View(invoice);
+            return View(vwInvoice);
         }
 
         // GET: Invoices/Create
         public ActionResult Create()
         {
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email");
             return View();
         }
 
         // POST: Invoices/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,DateTime,Total,UserID")] Invoice invoice)
+        public ActionResult Create([Bind(Include = "Invoice_Date,Invoice_Total,Customer_Email,Card_Number,Ship_To,City,State,Zip_Code,Phone,Email")] vwInvoice vwInvoice)
         {
             if (ModelState.IsValid)
             {
-                db.Invoices.Add(invoice);
+                db.vwInvoices.Add(vwInvoice);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", invoice.AspNetUser.Email);
-            return View(invoice);
+            return View(vwInvoice);
         }
 
         // GET: Invoices/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(DateTime id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Invoice invoice = db.Invoices.Find(id);
-            if (invoice == null)
+            vwInvoice vwInvoice = db.vwInvoices.Find(id);
+            if (vwInvoice == null)
             {
                 return HttpNotFound();
             }
-
-            //var query = ((from s in db.Shippings
-            //              select s.))
-
-
-            //ViewBag.ShippingID = new SelectList(db.Shippings, "Id", "FirstName, LastName", invoice.ShippingId);
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", invoice.UserID);
-            return View(invoice);
+            return View(vwInvoice);
         }
 
         // POST: Invoices/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,DateTime,Total,UserID")] Invoice invoice)
+        public ActionResult Edit([Bind(Include = "Invoice_Date,Invoice_Total,Customer_Email,Card_Number,Ship_To,City,State,Zip_Code,Phone,Email")] vwInvoice vwInvoice)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(invoice).State = EntityState.Modified;
+                db.Entry(vwInvoice).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", invoice.UserID);
-            return View(invoice);
+            return View(vwInvoice);
         }
 
         // GET: Invoices/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(DateTime id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Invoice invoice = db.Invoices.Find(id);
-            if (invoice == null)
+            vwInvoice vwInvoice = db.vwInvoices.Find(id);
+            if (vwInvoice == null)
             {
                 return HttpNotFound();
             }
-            return View(invoice);
+            return View(vwInvoice);
         }
 
         // POST: Invoices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(DateTime id)
         {
-            Invoice invoice = db.Invoices.Find(id);
-            db.Invoices.Remove(invoice);
+            vwInvoice vwInvoice = db.vwInvoices.Find(id);
+            db.vwInvoices.Remove(vwInvoice);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

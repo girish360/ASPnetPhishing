@@ -39,28 +39,26 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         // GET: LineItems/Create
         public ActionResult Create()
         {
-            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "Id");
+            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "UserID");
             ViewBag.ProductId = new SelectList(db.Products, "Id", "Name");
             return View();
         }
 
         // POST: LineItems/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LineItemId,InvoiceId,ProductId,Qty")] LineItem lineItem)
+        public ActionResult Create([Bind(Include = "LineItemId,InvoiceId,ProductId,Qty,LineTotal")] LineItem lineItem)
         {
             if (ModelState.IsValid)
             {
-                lineItem.Product = db.Products.Find(lineItem.ProductId);
-                lineItem.LineTotal = lineItem.Product.Price * lineItem.Qty;
                 db.LineItems.Add(lineItem);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "Id", lineItem.InvoiceId);
+            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "UserID", lineItem.InvoiceId);
             ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", lineItem.ProductId);
             return View(lineItem);
         }
@@ -77,27 +75,25 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             {
                 return HttpNotFound();
             }
-            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "Id", lineItem.InvoiceId);
+            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "UserID", lineItem.InvoiceId);
             ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", lineItem.ProductId);
             return View(lineItem);
         }
 
         // POST: LineItems/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "LineItemId,InvoiceId,ProductId,Qty,LineTotal")] LineItem lineItem)
         {
             if (ModelState.IsValid)
             {
-                lineItem.Product = db.Products.Find(lineItem.ProductId);
-                lineItem.LineTotal = lineItem.Product.Price * lineItem.Qty;
                 db.Entry(lineItem).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "Id", lineItem.InvoiceId);
+            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "UserID", lineItem.InvoiceId);
             ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", lineItem.ProductId);
             return View(lineItem);
         }

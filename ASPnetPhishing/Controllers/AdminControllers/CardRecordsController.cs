@@ -10,112 +10,112 @@ using ASPnetPhishing.Models;
 
 namespace ASPnetPhishing.Controllers.AdminControllers
 {
-    public class PaymentsController : Controller
+    public class CardRecordsController : Controller
     {
         private AdminConnection db = new AdminConnection();
 
-        // GET: Payments
+        // GET: CardRecords
         public ActionResult Index()
         {
-            var paymentRecords = db.PaymentRecords.Include(p => p.CardRecord);
-            return View(paymentRecords.ToList());
+            var cardRecords = db.CardRecords.Include(c => c.AspNetUser);
+            return View(cardRecords.ToList());
         }
 
-        // GET: Payments/Details/5
+        // GET: CardRecords/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PaymentRecord paymentRecord = db.PaymentRecords.Find(id);
-            if (paymentRecord == null)
+            CardRecord cardRecord = db.CardRecords.Find(id);
+            if (cardRecord == null)
             {
                 return HttpNotFound();
             }
-            return View(paymentRecord);
+            return View(cardRecord);
         }
 
-        // GET: Payments/Create
+        // GET: CardRecords/Create
         public ActionResult Create()
         {
-            ViewBag.CardRecordId = new SelectList(db.CardRecords, "Id", "CustomerId");
+            ViewBag.CustomerId = new SelectList(db.AspNetUsers, "Id", "Email");
             return View();
         }
 
-        // POST: Payments/Create
+        // POST: CardRecords/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PaymentId,CardRecordId")] PaymentRecord paymentRecord)
+        public ActionResult Create([Bind(Include = "Id,CustomerId,CardNumber,CCV,ExpDate,BillingAddress,BillingCity,BillingState,BillingZip,BillingEmail")] CardRecord cardRecord)
         {
             if (ModelState.IsValid)
             {
-                db.PaymentRecords.Add(paymentRecord);
+                db.CardRecords.Add(cardRecord);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CardRecordId = new SelectList(db.CardRecords, "Id", "CustomerId", paymentRecord.CardRecordId);
-            return View(paymentRecord);
+            ViewBag.CustomerId = new SelectList(db.AspNetUsers, "Id", "Email", cardRecord.CustomerId);
+            return View(cardRecord);
         }
 
-        // GET: Payments/Edit/5
+        // GET: CardRecords/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PaymentRecord paymentRecord = db.PaymentRecords.Find(id);
-            if (paymentRecord == null)
+            CardRecord cardRecord = db.CardRecords.Find(id);
+            if (cardRecord == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CardRecordId = new SelectList(db.CardRecords, "Id", "CustomerId", paymentRecord.CardRecordId);
-            return View(paymentRecord);
+            ViewBag.CustomerId = new SelectList(db.AspNetUsers, "Id", "Email", cardRecord.CustomerId);
+            return View(cardRecord);
         }
 
-        // POST: Payments/Edit/5
+        // POST: CardRecords/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PaymentId,CardRecordId")] PaymentRecord paymentRecord)
+        public ActionResult Edit([Bind(Include = "Id,CustomerId,CardNumber,CCV,ExpDate,BillingAddress,BillingCity,BillingState,BillingZip,BillingEmail")] CardRecord cardRecord)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(paymentRecord).State = EntityState.Modified;
+                db.Entry(cardRecord).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CardRecordId = new SelectList(db.CardRecords, "Id", "CustomerId", paymentRecord.CardRecordId);
-            return View(paymentRecord);
+            ViewBag.CustomerId = new SelectList(db.AspNetUsers, "Id", "Email", cardRecord.CustomerId);
+            return View(cardRecord);
         }
 
-        // GET: Payments/Delete/5
+        // GET: CardRecords/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PaymentRecord paymentRecord = db.PaymentRecords.Find(id);
-            if (paymentRecord == null)
+            CardRecord cardRecord = db.CardRecords.Find(id);
+            if (cardRecord == null)
             {
                 return HttpNotFound();
             }
-            return View(paymentRecord);
+            return View(cardRecord);
         }
 
-        // POST: Payments/Delete/5
+        // POST: CardRecords/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PaymentRecord paymentRecord = db.PaymentRecords.Find(id);
-            db.PaymentRecords.Remove(paymentRecord);
+            CardRecord cardRecord = db.CardRecords.Find(id);
+            db.CardRecords.Remove(cardRecord);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

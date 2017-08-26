@@ -1,4 +1,4 @@
-﻿@model ASPnetPhishing.Models.Shipping
+﻿@model ASPnetPhishing.Models.CardRecord
 
 @{
     ViewBag.Title = "Delete";
@@ -9,71 +9,71 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Shipping</h4>
+    <h4>CardRecord</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.CardNumber)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.CardNumber)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.CCV)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.CCV)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingAddress)
+            @Html.DisplayNameFor(model => model.ExpDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ShippingAddress)
+            @Html.DisplayFor(model => model.ExpDate)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingCity)
+            @Html.DisplayNameFor(model => model.BillingAddress)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ShippingCity)
+            @Html.DisplayFor(model => model.BillingAddress)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingState)
+            @Html.DisplayNameFor(model => model.BillingCity)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ShippingState)
+            @Html.DisplayFor(model => model.BillingCity)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingZipCode)
+            @Html.DisplayNameFor(model => model.BillingState)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ShippingZipCode)
+            @Html.DisplayFor(model => model.BillingState)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingPhone)
+            @Html.DisplayNameFor(model => model.BillingZip)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ShippingPhone)
+            @Html.DisplayFor(model => model.BillingZip)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingEmail)
+            @Html.DisplayNameFor(model => model.BillingEmail)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ShippingEmail)
+            @Html.DisplayFor(model => model.BillingEmail)
         </dd>
 
         <dt>

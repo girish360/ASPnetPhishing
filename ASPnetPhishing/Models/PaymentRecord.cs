@@ -12,25 +12,19 @@ namespace ASPnetPhishing.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Invoice
+    public partial class PaymentRecord
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Invoice()
+        public PaymentRecord()
         {
-            this.LineItems = new HashSet<LineItem>();
+            this.Invoices = new HashSet<Invoice>();
         }
     
-        public int Id { get; set; }
-        public System.DateTime DateTime { get; set; }
-        public decimal Total { get; set; }
-        public string UserID { get; set; }
-        public Nullable<int> PaymentId { get; set; }
-        public Nullable<int> ShippingId { get; set; }
+        public int PaymentId { get; set; }
+        public int CardRecordId { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
-        public virtual PaymentRecord PaymentRecord { get; set; }
-        public virtual Shipping Shipping { get; set; }
+        public virtual CardRecord CardRecord { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LineItem> LineItems { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
     }
 }

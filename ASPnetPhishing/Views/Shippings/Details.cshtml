@@ -11,17 +11,8 @@
     <h4>Shipping</h4>
     <hr />
     <dl class="dl-horizontal">
-
         <dt>
-            Customer
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUser.Email)
-        </dd>
-
-        <dt>
-            First Name
+            @Html.DisplayNameFor(model => model.FirstName)
         </dt>
 
         <dd>
@@ -29,7 +20,7 @@
         </dd>
 
         <dt>
-            Last Name
+            @Html.DisplayNameFor(model => model.LastName)
         </dt>
 
         <dd>
@@ -69,7 +60,7 @@
         </dd>
 
         <dt>
-            Phone
+            @Html.DisplayNameFor(model => model.ShippingPhone)
         </dt>
 
         <dd>
@@ -77,11 +68,19 @@
         </dd>
 
         <dt>
-            Confirmation Email
+            @Html.DisplayNameFor(model => model.ShippingEmail)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ShippingEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
         </dd>
 
     </dl>

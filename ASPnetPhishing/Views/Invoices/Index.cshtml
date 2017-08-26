@@ -1,11 +1,11 @@
-﻿@model IEnumerable<ASPnetPhishing.Models.Invoice>
+﻿@model IEnumerable<ASPnetPhishing.Models.vwInvoice>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Invoice</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,40 +13,13 @@
 <table class="table">
     <tr>
         <th>
-            Invoice Date
+            @Html.DisplayNameFor(model => model.Customer_Email)
         </th>
         <th>
-            Invoice Total
+            @Html.DisplayNameFor(model => model.Phone)
         </th>
         <th>
-            Customer 
-        </th>
-        <th>
-            Payment Number
-        </th>
-        <th>
-            Shipping First Name
-        </th>
-        <th>
-            Shipping Last Name
-        </th>
-        <th>
-            Shipping Address
-        </th>
-        <th>
-            City
-        </th>
-        <th>
-            State
-        </th>
-        <th>
-            Zip Code
-        </th>
-        <th>
-            Shipping Phone
-        </th>
-        <th>
-            Confirmation Email
+            @Html.DisplayNameFor(model => model.Email)
         </th>
         <th></th>
     </tr>
@@ -54,45 +27,18 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.DateTime)
+            @Html.DisplayFor(modelItem => item.Customer_Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Total)
+            @Html.DisplayFor(modelItem => item.Phone)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+            @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PaymentId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shipping.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shipping.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shipping.ShippingAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shipping.ShippingCity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shipping.ShippingState)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shipping.ShippingZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shipping.ShippingPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shipping.ShippingEmail)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
 }

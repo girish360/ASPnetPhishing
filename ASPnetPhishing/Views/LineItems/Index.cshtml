@@ -13,19 +13,16 @@
 <table class="table">
     <tr>
         <th>
-            Product Name
+            @Html.DisplayNameFor(model => model.Qty)
         </th>
         <th>
-            Customer
+            @Html.DisplayNameFor(model => model.LineTotal)
         </th>
         <th>
-            Price
+            @Html.DisplayNameFor(model => model.Invoice.UserID)
         </th>
         <th>
-            Qty
-        </th>
-        <th>
-            Total
+            @Html.DisplayNameFor(model => model.Product.Name)
         </th>
         <th></th>
     </tr>
@@ -33,19 +30,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Product.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Invoice.AspNetUser.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product.Price)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Qty)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LineTotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice.UserID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.LineItemId }) |

@@ -22,6 +22,21 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="CardRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CardNumber" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="CCV" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="ExpDate" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="BillingAddress" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="BillingCity" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BillingState" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="BillingZip" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="BillingEmail" Type="nvarchar" MaxLength="256" />
+        </EntityType>
         <EntityType Name="Invoice">
           <Key>
             <PropertyRef Name="Id" />
@@ -43,19 +58,12 @@
           <Property Name="Qty" Type="int" Nullable="false" />
           <Property Name="LineTotal" Type="money" Nullable="false" />
         </EntityType>
-        <EntityType Name="Payment">
+        <EntityType Name="PaymentRecord">
           <Key>
             <PropertyRef Name="PaymentId" />
           </Key>
           <Property Name="PaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="InvoiceID" Type="int" Nullable="false" />
-          <Property Name="CardNum" Type="varchar" MaxLength="16" Nullable="false" />
-          <Property Name="CCV" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="ExpDate" Type="date" Nullable="false" />
-          <Property Name="BillingAddress" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="BillingCity" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="BillingState" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="BillingZip" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CardRecordId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -73,7 +81,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryName" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Shipping">
@@ -91,11 +99,46 @@
           <Property Name="ShippingPhone" Type="varchar" MaxLength="14" />
           <Property Name="ShippingEmail" Type="varchar" MaxLength="100" />
         </EntityType>
-        <Association Name="fk_invoice_payment">
-          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwInvoice">
+          <Key>
+            <PropertyRef Name="Invoice Date" />
+            <PropertyRef Name="Invoice Total" />
+            <PropertyRef Name="Card Number" />
+            <PropertyRef Name="Ship To" />
+            <PropertyRef Name="City" />
+            <PropertyRef Name="State" />
+            <PropertyRef Name="Zip Code" />
+          </Key>
+          <Property Name="Invoice Date" Type="datetime" Nullable="false" />
+          <Property Name="Invoice Total" Type="money" Nullable="false" />
+          <Property Name="Customer Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="Card Number" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="Ship To" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="Zip Code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="14" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="fk_cardrecord_aspnetusers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="CardRecord" Type="Self.CardRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CardRecord">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_invoice_paymentrecord">
+          <End Role="PaymentRecord" Type="Self.PaymentRecord" Multiplicity="0..1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Payment">
+            <Principal Role="PaymentRecord">
               <PropertyRef Name="PaymentId" />
             </Principal>
             <Dependent Role="Invoice">
@@ -151,15 +194,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_payment_invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+        <Association Name="fk_paymentrecord_cardrecord">
+          <End Role="CardRecord" Type="Self.CardRecord" Multiplicity="1" />
+          <End Role="PaymentRecord" Type="Self.PaymentRecord" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Invoice">
+            <Principal Role="CardRecord">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Payment">
-              <PropertyRef Name="InvoiceID" />
+            <Dependent Role="PaymentRecord">
+              <PropertyRef Name="CardRecordId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -189,14 +232,33 @@
         </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CardRecord" EntityType="Self.CardRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LineItem" EntityType="Self.LineItem" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentRecord" EntityType="Self.PaymentRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="fk_invoice_payment" Association="Self.fk_invoice_payment">
-            <End Role="Payment" EntitySet="Payment" />
+          <EntitySet Name="vwInvoice" EntityType="Self.vwInvoice" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwInvoice].[Invoice Date] AS [Invoice Date], 
+    [vwInvoice].[Invoice Total] AS [Invoice Total], 
+    [vwInvoice].[Customer Email] AS [Customer Email], 
+    [vwInvoice].[Card Number] AS [Card Number], 
+    [vwInvoice].[Ship To] AS [Ship To], 
+    [vwInvoice].[City] AS [City], 
+    [vwInvoice].[State] AS [State], 
+    [vwInvoice].[Zip Code] AS [Zip Code], 
+    [vwInvoice].[Phone] AS [Phone], 
+    [vwInvoice].[Email] AS [Email]
+    FROM [dbo].[vwInvoice] AS [vwInvoice]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_cardrecord_aspnetusers" Association="Self.fk_cardrecord_aspnetusers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CardRecord" EntitySet="CardRecord" />
+          </AssociationSet>
+          <AssociationSet Name="fk_invoice_paymentrecord" Association="Self.fk_invoice_paymentrecord">
+            <End Role="PaymentRecord" EntitySet="PaymentRecord" />
             <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
           <AssociationSet Name="fk_invoice_shipping" Association="Self.fk_invoice_shipping">
@@ -215,9 +277,9 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="LineItem" EntitySet="LineItem" />
           </AssociationSet>
-          <AssociationSet Name="fk_payment_invoice" Association="Self.fk_payment_invoice">
-            <End Role="Invoice" EntitySet="Invoice" />
-            <End Role="Payment" EntitySet="Payment" />
+          <AssociationSet Name="fk_paymentrecord_cardrecord" Association="Self.fk_paymentrecord_cardrecord">
+            <End Role="CardRecord" EntitySet="CardRecord" />
+            <End Role="PaymentRecord" EntitySet="PaymentRecord" />
           </AssociationSet>
           <AssociationSet Name="fk_product_productcategory" Association="Self.fk_product_productcategory">
             <End Role="ProductCategory" EntitySet="ProductCategory" />
@@ -249,8 +311,26 @@
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CardRecords" Relationship="Self.fk_cardrecord_aspnetusers" FromRole="AspNetUsers" ToRole="CardRecord" />
           <NavigationProperty Name="Invoices" Relationship="Self.fk_invoice_user" FromRole="AspNetUsers" ToRole="Invoice" />
           <NavigationProperty Name="Shippings" Relationship="Self.fk_shipping_aspnetuser" FromRole="AspNetUsers" ToRole="Shipping" />
+        </EntityType>
+        <EntityType Name="CardRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CardNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CCV" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExpDate" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BillingAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BillingCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BillingState" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BillingZip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BillingEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_cardrecord_aspnetusers" FromRole="CardRecord" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PaymentRecords" Relationship="Self.fk_paymentrecord_cardrecord" FromRole="CardRecord" ToRole="PaymentRecord" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -263,10 +343,9 @@
           <Property Name="PaymentId" Type="Int32" />
           <Property Name="ShippingId" Type="Int32" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.fk_invoice_user" FromRole="Invoice" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Payment" Relationship="Self.fk_invoice_payment" FromRole="Invoice" ToRole="Payment" />
+          <NavigationProperty Name="PaymentRecord" Relationship="Self.fk_invoice_paymentrecord" FromRole="Invoice" ToRole="PaymentRecord" />
           <NavigationProperty Name="Shipping" Relationship="Self.fk_invoice_shipping" FromRole="Invoice" ToRole="Shipping" />
           <NavigationProperty Name="LineItems" Relationship="Self.fk_lineitem_invoice" FromRole="Invoice" ToRole="LineItem" />
-          <NavigationProperty Name="Payments" Relationship="Self.fk_payment_invoice" FromRole="Invoice" ToRole="Payment" />
         </EntityType>
         <EntityType Name="LineItem">
           <Key>
@@ -280,21 +359,14 @@
           <NavigationProperty Name="Invoice" Relationship="Self.fk_lineitem_invoice" FromRole="LineItem" ToRole="Invoice" />
           <NavigationProperty Name="Product" Relationship="Self.fk_lineitem_product" FromRole="LineItem" ToRole="Product" />
         </EntityType>
-        <EntityType Name="Payment">
+        <EntityType Name="PaymentRecord">
           <Key>
             <PropertyRef Name="PaymentId" />
           </Key>
           <Property Name="PaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
-          <Property Name="CardNum" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CCV" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ExpDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="BillingAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BillingCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BillingState" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BillingZip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Invoices" Relationship="Self.fk_invoice_payment" FromRole="Payment" ToRole="Invoice" />
-          <NavigationProperty Name="Invoice" Relationship="Self.fk_payment_invoice" FromRole="Payment" ToRole="Invoice" />
+          <Property Name="CardRecordId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CardRecord" Relationship="Self.fk_paymentrecord_cardrecord" FromRole="PaymentRecord" ToRole="CardRecord" />
+          <NavigationProperty Name="Invoices" Relationship="Self.fk_invoice_paymentrecord" FromRole="PaymentRecord" ToRole="Invoice" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -314,7 +386,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.fk_product_productcategory" FromRole="ProductCategory" ToRole="Product" />
         </EntityType>
@@ -335,6 +407,39 @@
           <NavigationProperty Name="AspNetUser" Relationship="Self.fk_shipping_aspnetuser" FromRole="Shipping" ToRole="AspNetUsers" />
           <NavigationProperty Name="Invoices" Relationship="Self.fk_invoice_shipping" FromRole="Shipping" ToRole="Invoice" />
         </EntityType>
+        <EntityType Name="vwInvoice">
+          <Key>
+            <PropertyRef Name="Invoice_Date" />
+            <PropertyRef Name="Invoice_Total" />
+            <PropertyRef Name="Card_Number" />
+            <PropertyRef Name="Ship_To" />
+            <PropertyRef Name="City" />
+            <PropertyRef Name="State" />
+            <PropertyRef Name="Zip_Code" />
+          </Key>
+          <Property Name="Invoice_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Invoice_Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Customer_Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Card_Number" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ship_To" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Zip_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="fk_cardrecord_aspnetusers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="CardRecord" Type="Self.CardRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CardRecord">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_invoice_user">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
@@ -359,11 +464,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_invoice_payment">
-          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+        <Association Name="fk_paymentrecord_cardrecord">
+          <End Role="CardRecord" Type="Self.CardRecord" Multiplicity="1" />
+          <End Role="PaymentRecord" Type="Self.PaymentRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardRecord">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PaymentRecord">
+              <PropertyRef Name="CardRecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_invoice_paymentrecord">
+          <End Role="PaymentRecord" Type="Self.PaymentRecord" Multiplicity="0..1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Payment">
+            <Principal Role="PaymentRecord">
               <PropertyRef Name="PaymentId" />
             </Principal>
             <Dependent Role="Invoice">
@@ -395,18 +512,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_payment_invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Payment">
-              <PropertyRef Name="InvoiceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_lineitem_product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="LineItem" Type="Self.LineItem" Multiplicity="*" />
@@ -433,12 +538,18 @@
         </Association>
         <EntityContainer Name="AdminConnection" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="CardRecords" EntityType="Self.CardRecord" />
           <EntitySet Name="Invoices" EntityType="Self.Invoice" />
           <EntitySet Name="LineItems" EntityType="Self.LineItem" />
-          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="PaymentRecords" EntityType="Self.PaymentRecord" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
           <EntitySet Name="Shippings" EntityType="Self.Shipping" />
+          <EntitySet Name="vwInvoices" EntityType="Self.vwInvoice" />
+          <AssociationSet Name="fk_cardrecord_aspnetusers" Association="Self.fk_cardrecord_aspnetusers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CardRecord" EntitySet="CardRecords" />
+          </AssociationSet>
           <AssociationSet Name="fk_invoice_user" Association="Self.fk_invoice_user">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Invoice" EntitySet="Invoices" />
@@ -447,8 +558,12 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Shipping" EntitySet="Shippings" />
           </AssociationSet>
-          <AssociationSet Name="fk_invoice_payment" Association="Self.fk_invoice_payment">
-            <End Role="Payment" EntitySet="Payments" />
+          <AssociationSet Name="fk_paymentrecord_cardrecord" Association="Self.fk_paymentrecord_cardrecord">
+            <End Role="CardRecord" EntitySet="CardRecords" />
+            <End Role="PaymentRecord" EntitySet="PaymentRecords" />
+          </AssociationSet>
+          <AssociationSet Name="fk_invoice_paymentrecord" Association="Self.fk_invoice_paymentrecord">
+            <End Role="PaymentRecord" EntitySet="PaymentRecords" />
             <End Role="Invoice" EntitySet="Invoices" />
           </AssociationSet>
           <AssociationSet Name="fk_invoice_shipping" Association="Self.fk_invoice_shipping">
@@ -458,10 +573,6 @@
           <AssociationSet Name="fk_lineitem_invoice" Association="Self.fk_lineitem_invoice">
             <End Role="Invoice" EntitySet="Invoices" />
             <End Role="LineItem" EntitySet="LineItems" />
-          </AssociationSet>
-          <AssociationSet Name="fk_payment_invoice" Association="Self.fk_payment_invoice">
-            <End Role="Invoice" EntitySet="Invoices" />
-            <End Role="Payment" EntitySet="Payments" />
           </AssociationSet>
           <AssociationSet Name="fk_lineitem_product" Association="Self.fk_lineitem_product">
             <End Role="Product" EntitySet="Products" />
@@ -496,6 +607,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CardRecords">
+            <EntityTypeMapping TypeName="Model.CardRecord">
+              <MappingFragment StoreEntitySet="CardRecord">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="CCV" ColumnName="CCV" />
+                <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
+                <ScalarProperty Name="BillingAddress" ColumnName="BillingAddress" />
+                <ScalarProperty Name="BillingCity" ColumnName="BillingCity" />
+                <ScalarProperty Name="BillingState" ColumnName="BillingState" />
+                <ScalarProperty Name="BillingZip" ColumnName="BillingZip" />
+                <ScalarProperty Name="BillingEmail" ColumnName="BillingEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Invoices">
             <EntityTypeMapping TypeName="Model.Invoice">
               <MappingFragment StoreEntitySet="Invoice">
@@ -519,18 +646,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Payments">
-            <EntityTypeMapping TypeName="Model.Payment">
-              <MappingFragment StoreEntitySet="Payment">
+          <EntitySetMapping Name="PaymentRecords">
+            <EntityTypeMapping TypeName="Model.PaymentRecord">
+              <MappingFragment StoreEntitySet="PaymentRecord">
                 <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
-                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-                <ScalarProperty Name="CardNum" ColumnName="CardNum" />
-                <ScalarProperty Name="CCV" ColumnName="CCV" />
-                <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
-                <ScalarProperty Name="BillingAddress" ColumnName="BillingAddress" />
-                <ScalarProperty Name="BillingCity" ColumnName="BillingCity" />
-                <ScalarProperty Name="BillingState" ColumnName="BillingState" />
-                <ScalarProperty Name="BillingZip" ColumnName="BillingZip" />
+                <ScalarProperty Name="CardRecordId" ColumnName="CardRecordId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -568,6 +688,22 @@
                 <ScalarProperty Name="ShippingZipCode" ColumnName="ShippingZipCode" />
                 <ScalarProperty Name="ShippingPhone" ColumnName="ShippingPhone" />
                 <ScalarProperty Name="ShippingEmail" ColumnName="ShippingEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwInvoices">
+            <EntityTypeMapping TypeName="Model.vwInvoice">
+              <MappingFragment StoreEntitySet="vwInvoice">
+                <ScalarProperty Name="Invoice_Date" ColumnName="Invoice Date" />
+                <ScalarProperty Name="Invoice_Total" ColumnName="Invoice Total" />
+                <ScalarProperty Name="Customer_Email" ColumnName="Customer Email" />
+                <ScalarProperty Name="Card_Number" ColumnName="Card Number" />
+                <ScalarProperty Name="Ship_To" ColumnName="Ship To" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zip_Code" ColumnName="Zip Code" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

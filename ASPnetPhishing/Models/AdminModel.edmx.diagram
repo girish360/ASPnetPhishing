@@ -4,20 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bb92f0709bf645e4aacbd566e3ec1beb" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Invoice" Width="1.5" PointX="2.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.LineItem" Width="1.5" PointX="4.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Payment" Width="1.5" PointX="4.75" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Product" Width="1.5" PointX="6.875" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ProductCategory" Width="1.5" PointX="9" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Shipping" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+      <Diagram DiagramId="23087048e4584ab1a4537d45776355d5" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CardRecord" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Invoice" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LineItem" Width="1.5" PointX="9.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PaymentRecord" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Product" Width="1.5" PointX="7.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProductCategory" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Shipping" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.vwInvoice" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.fk_cardrecord_aspnetusers" ManuallyRouted="false" />
         <AssociationConnector Association="Model.fk_invoice_user" ManuallyRouted="false" />
         <AssociationConnector Association="Model.fk_shipping_aspnetuser" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.fk_invoice_payment" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.fk_paymentrecord_cardrecord" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.fk_invoice_paymentrecord" ManuallyRouted="false" />
         <AssociationConnector Association="Model.fk_invoice_shipping" ManuallyRouted="false" />
         <AssociationConnector Association="Model.fk_lineitem_invoice" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.fk_payment_invoice" ManuallyRouted="false" />
         <AssociationConnector Association="Model.fk_lineitem_product" ManuallyRouted="false" />
         <AssociationConnector Association="Model.fk_product_productcategory" ManuallyRouted="false" />
       </Diagram>

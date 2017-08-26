@@ -26,11 +26,13 @@ namespace ASPnetPhishing.Models
         }
     
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<CardRecord> CardRecords { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<LineItem> LineItems { get; set; }
-        public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<PaymentRecord> PaymentRecords { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<Shipping> Shippings { get; set; }
+        public virtual DbSet<vwInvoice> vwInvoices { get; set; }
     }
 }

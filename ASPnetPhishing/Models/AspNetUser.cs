@@ -17,6 +17,7 @@ namespace ASPnetPhishing.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AspNetUser()
         {
+            this.CardRecords = new HashSet<CardRecord>();
             this.Invoices = new HashSet<Invoice>();
             this.Shippings = new HashSet<Shipping>();
         }
@@ -34,6 +35,8 @@ namespace ASPnetPhishing.Models
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CardRecord> CardRecords { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoice> Invoices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
