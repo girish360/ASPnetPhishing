@@ -13,13 +13,37 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Customer_Email)
+            Invoice Number
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            Invoice Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            Invoice Total
+        </th>
+        <th>
+            Customer
+        </th>
+        <th>
+            Payment Card Number
+        </th>
+        <th>
+            Ship To
+        </th>
+        <th>
+            City
+        </th>
+        <th>
+            State
+        </th>
+        <th>
+            Zip Code
+        </th>
+        <th>
+            Shipping Phone
+        </th>
+        <th>
+            Shipping Email
         </th>
         <th></th>
     </tr>
@@ -27,7 +51,31 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Total)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Customer_Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Card_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ship_To)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zip_Code)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Phone)

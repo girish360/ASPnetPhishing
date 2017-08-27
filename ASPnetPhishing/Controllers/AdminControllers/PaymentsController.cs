@@ -36,10 +36,32 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             return View(paymentRecord);
         }
 
+        // GET: Select Invoice
+        public ActionResult SelectInvoice()
+        {
+            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "Id");
+            return View();
+        }
+
+        // POST: Select Invoice
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SelectInvoice([Bind(Include = "InvoiceId")] Invoice invoice)
+        {
+           ViewBag.SelectedInvoice = new SelectList(db.Invoices, "Id", "Id", invoice.Id);
+            return View();
+        }
+
         // GET: Payments/Create
         public ActionResult Create()
         {
-            ViewBag.CardRecordId = new SelectList(db.CardRecords, "Id", "CustomerId");
+            var cardInfo = (from c in db.CardRecords
+                            join anu in db.AspNetUsers
+                            on c.CustomerId equals anu.Id
+                            select new { Id = c.Id, CardInfo = anu.Email + " -> " + c.CardNumber });
+            ViewBag.CardNumber = new SelectList(cardInfo, "Id", "CardInfo");
             return View();
         }
 
@@ -48,7 +70,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PaymentId,CardRecordId")] PaymentRecord paymentRecord)
+        public ActionResult Create([Bind(Include = "PaymentId,CardRecordId,PaymentAmount")] PaymentRecord paymentRecord)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +104,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PaymentId,CardRecordId")] PaymentRecord paymentRecord)
+        public ActionResult Edit([Bind(Include = "PaymentId,CardRecordId,PaymentAmount")] PaymentRecord paymentRecord)
         {
             if (ModelState.IsValid)
             {

@@ -64,6 +64,7 @@
           </Key>
           <Property Name="PaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CardRecordId" Type="int" Nullable="false" />
+          <Property Name="PaymentAmount" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -103,6 +104,7 @@
 warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwInvoice">
           <Key>
+            <PropertyRef Name="Invoice Number" />
             <PropertyRef Name="Invoice Date" />
             <PropertyRef Name="Invoice Total" />
             <PropertyRef Name="Card Number" />
@@ -111,6 +113,7 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
             <PropertyRef Name="State" />
             <PropertyRef Name="Zip Code" />
           </Key>
+          <Property Name="Invoice Number" Type="int" Nullable="false" />
           <Property Name="Invoice Date" Type="datetime" Nullable="false" />
           <Property Name="Invoice Total" Type="money" Nullable="false" />
           <Property Name="Customer Email" Type="nvarchar" MaxLength="256" />
@@ -241,6 +244,7 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
           <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vwInvoice" EntityType="Self.vwInvoice" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [vwInvoice].[Invoice Number] AS [Invoice Number], 
     [vwInvoice].[Invoice Date] AS [Invoice Date], 
     [vwInvoice].[Invoice Total] AS [Invoice Total], 
     [vwInvoice].[Customer Email] AS [Customer Email], 
@@ -365,6 +369,7 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
           </Key>
           <Property Name="PaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CardRecordId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="CardRecord" Relationship="Self.fk_paymentrecord_cardrecord" FromRole="PaymentRecord" ToRole="CardRecord" />
           <NavigationProperty Name="Invoices" Relationship="Self.fk_invoice_paymentrecord" FromRole="PaymentRecord" ToRole="Invoice" />
         </EntityType>
@@ -409,6 +414,7 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
         </EntityType>
         <EntityType Name="vwInvoice">
           <Key>
+            <PropertyRef Name="Invoice_Number" />
             <PropertyRef Name="Invoice_Date" />
             <PropertyRef Name="Invoice_Total" />
             <PropertyRef Name="Card_Number" />
@@ -417,6 +423,7 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
             <PropertyRef Name="State" />
             <PropertyRef Name="Zip_Code" />
           </Key>
+          <Property Name="Invoice_Number" Type="Int32" Nullable="false" />
           <Property Name="Invoice_Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Invoice_Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Customer_Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
@@ -651,6 +658,7 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
               <MappingFragment StoreEntitySet="PaymentRecord">
                 <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
                 <ScalarProperty Name="CardRecordId" ColumnName="CardRecordId" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -694,6 +702,7 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
           <EntitySetMapping Name="vwInvoices">
             <EntityTypeMapping TypeName="Model.vwInvoice">
               <MappingFragment StoreEntitySet="vwInvoice">
+                <ScalarProperty Name="Invoice_Number" ColumnName="Invoice Number" />
                 <ScalarProperty Name="Invoice_Date" ColumnName="Invoice Date" />
                 <ScalarProperty Name="Invoice_Total" ColumnName="Invoice Total" />
                 <ScalarProperty Name="Customer_Email" ColumnName="Customer Email" />

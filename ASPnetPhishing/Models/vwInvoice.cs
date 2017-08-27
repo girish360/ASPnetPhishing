@@ -14,6 +14,7 @@ namespace ASPnetPhishing.Models
     
     public partial class vwInvoice
     {
+        public int Invoice_Number { get; set; }
         public System.DateTime Invoice_Date { get; set; }
         public decimal Invoice_Total { get; set; }
         public string Customer_Email { get; set; }

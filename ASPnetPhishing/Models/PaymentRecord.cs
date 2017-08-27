@@ -22,6 +22,7 @@ namespace ASPnetPhishing.Models
     
         public int PaymentId { get; set; }
         public int CardRecordId { get; set; }
+        public decimal PaymentAmount { get; set; }
     
         public virtual CardRecord CardRecord { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

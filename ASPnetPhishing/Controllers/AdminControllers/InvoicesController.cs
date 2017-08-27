@@ -21,7 +21,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         }
 
         // GET: Invoices/Details/5
-        public ActionResult Details(DateTime id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -46,7 +46,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Invoice_Date,Invoice_Total,Customer_Email,Card_Number,Ship_To,City,State,Zip_Code,Phone,Email")] vwInvoice vwInvoice)
+        public ActionResult Create([Bind(Include = "Invoice_Number,Invoice_Date,Invoice_Total,Customer_Email,Card_Number,Ship_To,City,State,Zip_Code,Phone,Email")] vwInvoice vwInvoice)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         }
 
         // GET: Invoices/Edit/5
-        public ActionResult Edit(DateTime id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -78,7 +78,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Invoice_Date,Invoice_Total,Customer_Email,Card_Number,Ship_To,City,State,Zip_Code,Phone,Email")] vwInvoice vwInvoice)
+        public ActionResult Edit([Bind(Include = "Invoice_Number,Invoice_Date,Invoice_Total,Customer_Email,Card_Number,Ship_To,City,State,Zip_Code,Phone,Email")] vwInvoice vwInvoice)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         }
 
         // GET: Invoices/Delete/5
-        public ActionResult Delete(DateTime id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -107,7 +107,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         // POST: Invoices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(DateTime id)
+        public ActionResult DeleteConfirmed(int id)
         {
             vwInvoice vwInvoice = db.vwInvoices.Find(id);
             db.vwInvoices.Remove(vwInvoice);
