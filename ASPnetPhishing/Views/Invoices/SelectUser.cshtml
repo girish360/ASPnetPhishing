@@ -13,12 +13,12 @@
     @Html.AntiForgeryToken()
     <b>Search By:</b> 
     @Html.RadioButton("searchBy", "Email", true) <text>Email</text>
-    @Html.RadioButton("searchBy", "Username") <text>Username</text>
     @Html.RadioButton("searchBy", "Phone") <text>Phone Number</text>
+    @Html.RadioButton("searchBy", "Username") <text>Username</text>
 
-    <br />
+    <br /><br />
 
-    @Html.TextBox("value") <input type="submit" value="Search" />
+    @Html.TextBox("value", null, htmlAttributes: new { @class = "form-control", @style = "display:inline-block;" }) <input type="submit" value="Search" class="btn btn-default"/>
 
 }
 
@@ -55,8 +55,7 @@
                 <td>
                     @using (Html.BeginForm("AddNewInvoice", "Invoices", FormMethod.Get))
                     {
-                        @Html.AntiForgeryToken()
-                        @Html.HiddenFor(modelItem => item.Id) <input type="submit" value="Select" />
+                        @Html.HiddenFor(modelItem => item.Id, htmlAttributes: new { @name = "Id" }) <input type="submit" value="Select" />
                     }
                 </td>
             </tr>

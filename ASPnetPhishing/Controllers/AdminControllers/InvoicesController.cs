@@ -62,18 +62,29 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         // GET: Invoices/add new invoice in database 
         public ActionResult AddNewInvoice(string Id)
         {
-            Invoice newInvoice = new Invoice();
-            newInvoice.DateTime = DateTime.Now;
-            newInvoice.UserID = Id;
+            if (ModelState.IsValid)
+            {
+                Invoice newInvoice = new Invoice();
+                newInvoice.DateTime = DateTime.Now;
+                newInvoice.UserID = Id;
 
-            db.Invoices.Add(newInvoice);
-            db.SaveChanges();
-            return RedirectToAction("AddLineItems");
+                db.Invoices.Add(newInvoice);
+                //db.SaveChanges();
+                return RedirectToAction("AddLineItems");
+            }
+            else
+            {
+                return View();
+            }
+            //return View();
+            
         }
 
         // GET: Invoices/Create
         public ActionResult AddLineItems()
         {
+            //Invoice invoice = (Invoice)db.Invoices.Last();
+
             return View();
         }
 
