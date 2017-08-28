@@ -206,6 +206,7 @@
     <Compile Include="Controllers\AdminControllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\AdminControllers\ProductsController.cs" />
     <Compile Include="Controllers\AdminControllers\ShippingsController.cs" />
+    <Compile Include="Controllers\AdminControllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -386,6 +387,13 @@
     <Content Include="Views\Invoices\Details.cshtml" />
     <Content Include="Views\Invoices\Edit.cshtml" />
     <Content Include="Views\Invoices\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Invoices\SelectUser.cshtml" />
+    <Content Include="Views\Invoices\AddLineItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

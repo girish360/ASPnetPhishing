@@ -35,6 +35,48 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             return View(vwInvoice);
         }
 
+        // GET: Invoices/select user
+        public ActionResult SelectUser(string searchBy, string value)
+        {
+            if (searchBy != null)
+            {
+                if (searchBy.Equals("Email"))
+                {
+                    return View(db.AspNetUsers.Where(u => u.Email.StartsWith(value)).ToList());
+                }
+                else if (searchBy.Equals("PhoneNumber"))
+                {
+                    return View(db.AspNetUsers.Where(u => u.PhoneNumber == value).ToList());
+                }
+                else
+                {
+                    return View(db.AspNetUsers.Where(u => u.UserName.StartsWith(value)).ToList());
+                }
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        // GET: Invoices/add new invoice in database 
+        public ActionResult AddNewInvoice(string Id)
+        {
+            Invoice newInvoice = new Invoice();
+            newInvoice.DateTime = DateTime.Now;
+            newInvoice.UserID = Id;
+
+            db.Invoices.Add(newInvoice);
+            db.SaveChanges();
+            return RedirectToAction("AddLineItems");
+        }
+
+        // GET: Invoices/Create
+        public ActionResult AddLineItems()
+        {
+            return View();
+        }
+
         // GET: Invoices/Create
         public ActionResult Create()
         {

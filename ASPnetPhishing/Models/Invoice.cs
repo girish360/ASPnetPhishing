@@ -22,7 +22,7 @@ namespace ASPnetPhishing.Models
     
         public int Id { get; set; }
         public System.DateTime DateTime { get; set; }
-        public decimal Total { get; set; }
+        public Nullable<decimal> Total { get; set; }
         public string UserID { get; set; }
         public Nullable<int> PaymentId { get; set; }
         public Nullable<int> ShippingId { get; set; }

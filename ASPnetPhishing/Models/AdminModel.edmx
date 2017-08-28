@@ -43,7 +43,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DateTime" Type="datetime" Nullable="false" />
-          <Property Name="Total" Type="money" Nullable="false" />
+          <Property Name="Total" Type="money" />
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="PaymentId" Type="int" />
           <Property Name="ShippingId" Type="int" />
@@ -342,7 +342,7 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PaymentId" Type="Int32" />
           <Property Name="ShippingId" Type="Int32" />

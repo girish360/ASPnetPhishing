@@ -39,19 +39,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         // GET: Select Invoice
         public ActionResult SelectInvoice()
         {
-            ViewBag.InvoiceId = new SelectList(db.Invoices, "Id", "Id");
-            return View();
-        }
-
-        // POST: Select Invoice
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult SelectInvoice([Bind(Include = "InvoiceId")] Invoice invoice)
-        {
-           ViewBag.SelectedInvoice = new SelectList(db.Invoices, "Id", "Id", invoice.Id);
-            return View();
+            return View(db.vwInvoices.ToList());
         }
 
         // GET: Payments/Create
