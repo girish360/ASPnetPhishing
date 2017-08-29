@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ASPnetPhishing.Models.Product>
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cart</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Total
+        </th>
+        <th></th>
+    </tr>
+    
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @using (Html.BeginForm("Cart", "ProductLists", FormMethod.Get))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.TextBox("qty", null, htmlAttributes: new { @class = "form-control", @style = "display:inline-block;" })
+                        <input type="submit" value="Update Qty" class="btn btn-default" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageFilename)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @*@Html.ActionLink("Add To Cart", "Cart", new { id = item.Id })*@
+                </td>
+            </tr>
+        }
+    }
+    
+
+</table>

@@ -209,6 +209,7 @@
     <Compile Include="Controllers\AdminControllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductListsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -394,6 +395,9 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Invoices\SelectUser.cshtml" />
     <Content Include="Views\Invoices\AddLineItems.cshtml" />
+    <Content Include="Views\ProductLists\Details.cshtml" />
+    <Content Include="Views\ProductLists\Index.cshtml" />
+    <Content Include="Views\ProductLists\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
