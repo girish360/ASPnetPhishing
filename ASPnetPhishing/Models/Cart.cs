@@ -7,7 +7,7 @@ namespace ASPnetPhishing.Models
 {
     public class Cart
     {
-        public const decimal TAX = 0.7m;
+        public const decimal TAX = 0.07m;
         private List<LineItem> cartItems;
 
         public List<LineItem> CartItems 
@@ -29,9 +29,32 @@ namespace ASPnetPhishing.Models
 
         public void AddItem(LineItem li)
         {
-            this.CartItems.Add(li);
+            bool duplicate = false;
+            foreach (LineItem item in this.cartItems)
+            {
+                if (li.Product.Id == item.Product.Id)
+                {
+                    duplicate = true;
+                    item.Qty += 1;
+                }
+            }
+            if (!duplicate)
+            {
+                this.CartItems.Add(li);
+            }
             CalculateTotal();
 
+        }
+
+        public void UpdateItem(LineItem li)
+        {
+            foreach (LineItem item in this.cartItems)
+            {
+                if (li.Product.Id == item.Product.Id)
+                {
+                    item.Qty = li.Qty;
+                }
+            }
         }
 
         public void RemoveItem(LineItem li)

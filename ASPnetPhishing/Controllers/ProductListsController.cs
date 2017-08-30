@@ -36,23 +36,45 @@ namespace ASPnetPhishing.Controllers
             return View(product);
         }
 
-        public ActionResult Cart(int? qty, Product SelectedProduct, Cart currentCart)
+        public ActionResult Cart(Product SelectedProduct, LineItem item)
         {
-            if (currentCart == null)
+            Cart currentCart;
+            int qty;
+            Product product = db.Products.Find(SelectedProduct.Id);
+            if (Session["Cart"] == null)
             {
                 currentCart = new Cart();
             }
-            if (qty == null)
+            else
+            {
+                currentCart = (Cart)Session["Cart"];
+            }
+
+            if (item.Qty == 0)
             {
                 qty = 1;
             }
-            Product product = db.Products.Find(SelectedProduct.Id);
-            LineItem currentItem = new LineItem();
-            currentItem.Qty = Convert.ToInt32(qty);
-            currentItem.Product = product;
-            currentItem.SetLineTotal();
-            currentCart.AddItem(currentItem);
+            else
+            {
+                qty = Convert.ToInt32(item.Qty);
+            }
+
+            item = new LineItem();
+            item.Qty = qty;
+            item.Product = product;
+            currentCart.AddItem(item);
+            Session["Cart"] = currentCart;
             return View(currentCart);
+            
+        }
+
+        public void UpdateQty(LineItem item)
+        {
+            Cart currentCart = (Cart) Session["Cart"];
+            item.Product = db.Products.Find(item.Product.Id);
+            currentCart.UpdateItem(item);
+            Session["Cart"] = currentCart;
+            //Response.Redirect("~/Controllers/ProductListsController/Cart");
         }
 
         protected override void Dispose(bool disposing)

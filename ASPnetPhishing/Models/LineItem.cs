@@ -17,18 +17,46 @@ namespace ASPnetPhishing.Models
         public int LineItemId { get; set; }
         public int InvoiceId { get; set; }
         public int ProductId { get; set; }
-        public int Qty { get; set; }
+
+        private int qty;
+        public int? Qty
+        {
+            get
+            {
+                return this.qty;
+            }
+            set
+            {
+                this.qty = Convert.ToInt32(value);
+                if (this.Product != null)
+                {
+                    SetLineTotal();
+                }
+            }
+        }
         public decimal LineTotal { get; private set; }
 
-        public void SetLineTotal()
+        private void SetLineTotal()
         {
-            if (this.Qty > 0 && this.Product != null)
-            {
-                this.LineTotal = this.Qty * this.Product.Price;
-            }
+            this.LineTotal = this.qty * this.Product.Price;            
         }
     
         public virtual Invoice Invoice { get; set; }
-        public virtual Product Product { get; set; }
+        private Product product;
+        public virtual Product Product
+        {
+            get
+            {
+                return this.product;
+            }
+            set
+            {
+                this.product = value;
+                if (this.Qty != null)
+                {
+                    SetLineTotal();
+                }
+            }
+        }
     }
 }
