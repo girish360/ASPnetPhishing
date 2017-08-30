@@ -1,0 +1,70 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace ASPnetPhishing.Models
+{
+    public class Cart
+    {
+        public const decimal TAX = 0.7m;
+        private List<LineItem> cartItems;
+
+        public List<LineItem> CartItems 
+        {
+            get { return this.cartItems; }
+            set { this.cartItems = value; }
+        }
+
+        public AspNetUser CartOwner { get; set; }
+        public Invoice Invoice { get; set; }
+        public decimal Total { get; private set; }
+        public decimal Subtotal { get; private set; }
+        public decimal TaxAmount { get; private set; }
+
+        public Cart()
+        {
+            cartItems = new List<LineItem>();
+        }
+
+        public void AddItem(LineItem li)
+        {
+            this.CartItems.Add(li);
+            CalculateTotal();
+
+        }
+
+        public void RemoveItem(LineItem li)
+        {
+            this.CartItems.Remove(li);
+            CalculateTotal();
+        }
+
+        public void ClearCart()
+        {
+            this.CartItems.Clear();
+            this.Total = 0m;
+        }
+
+        private void SetSubtotal()
+        {
+            this.Subtotal = 0m;
+            foreach (LineItem li in this.CartItems)
+            {
+                this.Subtotal += li.LineTotal;
+            }
+        }
+
+        private void SetTaxAmount()
+        {
+            this.TaxAmount = this.Subtotal * TAX;
+        }
+
+        private void CalculateTotal()
+        {
+            SetSubtotal();
+            SetTaxAmount();
+            this.Total = this.Subtotal + this.TaxAmount;
+        }
+    }
+}
