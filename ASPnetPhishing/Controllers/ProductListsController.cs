@@ -89,13 +89,13 @@ namespace ASPnetPhishing.Controllers
             return View(currentCart);
         }
 
-        public void UpdateQty(LineItem item)
+        public ActionResult UpdateQty(LineItem item)
         {
             Cart currentCart = (Cart) Session["Cart"];
             item.Product = db.Products.Find(item.Product.Id);
             currentCart.UpdateItem(item);
             Session["Cart"] = currentCart;
-            //Response.Redirect("~/Controllers/ProductListsController/Cart");
+            return RedirectToAction("Cart");
         }
 
         protected override void Dispose(bool disposing)
