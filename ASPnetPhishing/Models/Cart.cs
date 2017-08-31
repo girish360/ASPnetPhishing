@@ -55,6 +55,7 @@ namespace ASPnetPhishing.Models
                     item.Qty = li.Qty;
                 }
             }
+            CalculateTotal();
         }
 
         public void RemoveItem(LineItem li)
