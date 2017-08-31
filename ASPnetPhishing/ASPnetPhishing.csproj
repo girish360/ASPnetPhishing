@@ -282,6 +282,28 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\big-reel.jpg" />
+    <Content Include="Images\big-rod.jpg" />
+    <Content Include="Images\cheap-boat.jpg" />
+    <Content Include="Images\depth_finder.jpg" />
+    <Content Include="Images\floats.jpg" />
+    <Content Include="Images\fly-reel.jpg" />
+    <Content Include="Images\gloves.jpg" />
+    <Content Include="Images\hard-lures.jpg" />
+    <Content Include="Images\hook.jpg" />
+    <Content Include="Images\junior-rod.jpg" />
+    <Content Include="Images\line.jpg" />
+    <Content Include="Images\med-reel.jpg" />
+    <Content Include="Images\med-rod.jpg" />
+    <Content Include="Images\net.jpg" />
+    <Content Include="Images\nice-boat.jpg" />
+    <Content Include="Images\scale.jpg" />
+    <Content Include="Images\soft-bait.jpg" />
+    <Content Include="Images\stringer.jpg" />
+    <Content Include="Images\tackle.jpg" />
+    <Content Include="Images\trolling.jpg" />
+    <Content Include="Images\waders.jpg" />
+    <Content Include="Images\weights.jpg" />
     <Content Include="Models\AdminModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AdminModel.edmx</DependentUpon>
