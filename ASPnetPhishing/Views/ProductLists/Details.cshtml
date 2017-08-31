@@ -10,58 +10,61 @@
 <div>
     <h4>Product</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <div class="container">
+        <div class="col-lg-4">
+            <img src="~/Images/@Url.Content(Model.ImageFilename)" alt="" height="250" width="250" />
+        </div>
+        <div class="col-lg-8">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
+                <dt>
+                    Category
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ProductCategory.CategoryName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageFilename)
-        </dt>
+            </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.ImageFilename)
-        </dd>
+            <hr />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductCategory.CategoryName)
-        </dt>
+            <p style="display:inline-block;">
+                @Html.ActionLink("Back to List", "Index")
+            </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductCategory.CategoryName)
-        </dd>
-
-    </dl>
+            @using (Html.BeginForm("Cart", "ProductLists", FormMethod.Get))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+                <div class="form-group">
+                    <input type="submit" value="Add To Cart" class="btn btn-success"/>
+                </div>
+            }
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

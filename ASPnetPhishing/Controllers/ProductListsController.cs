@@ -17,8 +17,10 @@ namespace ASPnetPhishing.Controllers
         // GET: ProductLists
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.ProductCategory);
-            return View(products.ToList());
+            var products = db.Products.Include(p => p.ProductCategory).ToList();
+            var category = db.ProductCategories.ToList();
+            ViewBag.categoryModel = category;
+            return View(products);
         }
 
         // GET: ProductLists/Details/5
@@ -94,6 +96,14 @@ namespace ASPnetPhishing.Controllers
             Cart currentCart = (Cart) Session["Cart"];
             item.Product = db.Products.Find(item.Product.Id);
             currentCart.UpdateItem(item);
+            Session["Cart"] = currentCart;
+            return RedirectToAction("Cart");
+        }
+
+        public ActionResult RemoveItem(LineItem item)
+        {
+            Cart currentCart = (Cart)Session["Cart"];
+            currentCart.RemoveItem(item);
             Session["Cart"] = currentCart;
             return RedirectToAction("Cart");
         }

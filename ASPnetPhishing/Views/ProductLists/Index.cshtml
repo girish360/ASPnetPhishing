@@ -5,7 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@*@Html.BeginForm("Index", "ProductLists", FormMethod.Get) {
+    @Html.AntiForgeryToken()
+    @using ASPnetPhishing.Models
+    @Html.DropDownListFor(ViewBag.categoryModel, )
 
+}*@
 
 <table class="table">
     <tr>
@@ -24,18 +29,18 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @*@Html.DisplayFor(modelItem => item.ImageFilename)*@
-            <img src="~/Images/@Url.Content(item.ImageFilename)" alt="" height="50" width="50" />
+            <a href="@Url.Action("Details", "ProductLists", new { id = item.Id })" >
+                <img src="~/Images/@Url.Content(item.ImageFilename)" alt="" height="50" width="50" />
+            </a>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.ActionLink(item.Name, "Details", new { id = item.Id })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Add To Cart", "Cart", new { id = item.Id })
+            @Html.ActionLink("Add To Cart", "Cart", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-success" })
         </td>
     </tr>
 }
