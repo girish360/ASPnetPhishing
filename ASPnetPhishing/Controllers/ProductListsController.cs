@@ -39,8 +39,6 @@ namespace ASPnetPhishing.Controllers
         public ActionResult Cart(Product SelectedProduct, LineItem item)
         {
             Cart currentCart;
-            int qty;
-            Product product = db.Products.Find(SelectedProduct.Id);
             if (Session["Cart"] == null)
             {
                 currentCart = new Cart();
@@ -49,23 +47,46 @@ namespace ASPnetPhishing.Controllers
             {
                 currentCart = (Cart)Session["Cart"];
             }
-
-            if (item.Qty == 0)
+            
+            if (Session["ProductType"] != null && Session["ProductType"].ToString().Equals("Permit"))
             {
-                qty = 1;
+                Product product = (Product)Session["Permit"];
+                Product permit = db.Products.Find(product.Id);
+
+                item = new LineItem();
+                item.Qty = 1;
+                item.Product = permit;
+                currentCart.AddItem(item);
+                Session["ProductType"] = "";
             }
             else
             {
-                qty = Convert.ToInt32(item.Qty);
-            }
+                
+                int qty;
+                Product product = db.Products.Find(SelectedProduct.Id);
+               
 
-            item = new LineItem();
-            item.Qty = qty;
-            item.Product = product;
-            currentCart.AddItem(item);
+
+                if (SelectedProduct.Id != 0)
+                {
+                    if (item.Qty == 0)
+                    {
+                        qty = 1;
+                    }
+                    else
+                    {
+                        qty = Convert.ToInt32(item.Qty);
+                    }
+                    item = new LineItem();
+                    item.Qty = qty;
+                    item.Product = product;
+                    currentCart.AddItem(item);
+                }
+
+                
+            }
             Session["Cart"] = currentCart;
             return View(currentCart);
-            
         }
 
         public void UpdateQty(LineItem item)

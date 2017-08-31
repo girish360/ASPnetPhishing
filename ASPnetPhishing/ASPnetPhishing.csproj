@@ -209,6 +209,7 @@
     <Compile Include="Controllers\AdminControllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PermitController.cs" />
     <Compile Include="Controllers\ProductListsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -399,6 +400,12 @@
     <Content Include="Views\ProductLists\Details.cshtml" />
     <Content Include="Views\ProductLists\Index.cshtml" />
     <Content Include="Views\ProductLists\Cart.cshtml" />
+    <Content Include="Views\Permit\Create.cshtml" />
+    <Content Include="Views\Permit\Delete.cshtml" />
+    <Content Include="Views\Permit\Details.cshtml" />
+    <Content Include="Views\Permit\Edit.cshtml" />
+    <Content Include="Views\Permit\Index.cshtml" />
+    <Content Include="Views\Permit\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

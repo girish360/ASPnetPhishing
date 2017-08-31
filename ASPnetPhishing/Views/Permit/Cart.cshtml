@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+}
+
+<h2>Cart</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Total
+        </th>
+        <th></th>
+    </tr>
+
+    @if (Model != null)
+    {
+        @Html.AntiForgeryToken()
+        foreach (var item in Model.CartItems)
+        {
+            using (Html.BeginForm("UpdateQty", "ProductLists", FormMethod.Get))
+            {
+                @Html.HiddenFor(modelItem => item.Product.Id, htmlAttributes: new { @name = "productId" })
+                <tr>
+                    <td>
+                        @Html.EditorFor(modelItem => item.Qty, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.ImageFilename)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LineTotal)
+                    </td>
+                    <td>
+                        <input type="submit" value="Update" class="btn btn-default" />
+                    </td>
+                </tr>
+            }
+        }
+    }
+</table>
+@if (Model != null)
+{
+    <div class="container">
+        <div class="col-md-6">
+            &nbsp;
+        </div>
+        <div class="col-md-3">
+            <strong>@Html.DisplayNameFor(model => model.Subtotal)</strong>
+            <br />
+            <strong>@Html.DisplayNameFor(model => model.TaxAmount)</strong>
+            <br />
+            <strong>@Html.DisplayNameFor(model => model.Total)</strong>
+        </div>
+        <div class="col-md-3">
+            <strong>@Html.DisplayFor(model => model.Subtotal)</strong>
+            <br />
+            <strong>@Html.DisplayFor(model => model.TaxAmount)</strong>
+            <br />
+            <strong>@Html.DisplayFor(model => model.Total)</strong>
+        </div>
+    </div>
+}
