@@ -19,11 +19,11 @@ namespace ASPnetPhishing.Models
 
         public AspNetUser CartOwner { get; set; }
         public Invoice Invoice { get; set; }
-        [DisplayFormat(DataFormatString = "{0:c}")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Total { get; private set; }
-        [DisplayFormat(DataFormatString = "{0:c}")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Subtotal { get; private set; }
-        [DisplayFormat(DataFormatString = "{0:c}")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal TaxAmount { get; private set; }
 
         public Cart()
@@ -71,7 +71,7 @@ namespace ASPnetPhishing.Models
                     li = item;
                 }
             }
-            this.CartItems.Remove(li);
+            this.cartItems.Remove(li);
             CalculateTotal();
         }
 

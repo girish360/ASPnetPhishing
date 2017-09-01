@@ -11,6 +11,7 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class PaymentRecord
     {
@@ -22,6 +23,7 @@ namespace ASPnetPhishing.Models
     
         public int PaymentId { get; set; }
         public int CardRecordId { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal PaymentAmount { get; set; }
     
         public virtual CardRecord CardRecord { get; set; }

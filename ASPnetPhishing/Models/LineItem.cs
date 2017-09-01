@@ -35,8 +35,7 @@ namespace ASPnetPhishing.Models
                 }
             }
         }
-
-        [DisplayFormat(DataFormatString = "{0:c}")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal LineTotal { get; private set; }
 
         private void SetLineTotal()

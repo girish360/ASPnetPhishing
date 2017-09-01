@@ -17,7 +17,7 @@ namespace ASPnetPhishing.Models
     {
         public int Invoice_Number { get; set; }
         public System.DateTime Invoice_Date { get; set; }
-        [DisplayFormat(DataFormatString = "{0:c}")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Invoice_Total { get; set; }
         public string Customer_Email { get; set; }
         public string Card_Number { get; set; }
