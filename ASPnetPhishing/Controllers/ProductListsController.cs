@@ -28,9 +28,13 @@ namespace ASPnetPhishing.Controllers
             List<ASPnetPhishing.Models.Product> products;
             if (catId >= 0)
             {
-                if (catId == 0)
+                if (catId == 0 && Session["category"] != null)
                 {
                     catId = Convert.ToInt32(Session["category"]);
+                }
+                else if (catId == 0 && Session["category"] == null)
+                {
+                    return RedirectToAction("ProductList", new { id = -1 });
                 }
                 Session["category"] = catId;
                 products = db.Products.Where(p => p.CategoryId == catId).Include(p => p.ProductCategory).ToList();
@@ -57,6 +61,7 @@ namespace ASPnetPhishing.Controllers
             return View(product);
         }
 
+        // GET: ProductLists/Cart
         public ActionResult Cart(Product SelectedProduct, LineItem item)
         {
             Cart currentCart;
@@ -82,11 +87,8 @@ namespace ASPnetPhishing.Controllers
             }
             else
             {
-                
                 int qty;
                 Product product = db.Products.Find(SelectedProduct.Id);
-               
-
 
                 if (SelectedProduct.Id != 0)
                 {
@@ -103,8 +105,6 @@ namespace ASPnetPhishing.Controllers
                     item.Product = product;
                     currentCart.AddItem(item);
                 }
-
-                
             }
             Session["Cart"] = currentCart;
             return View(currentCart);

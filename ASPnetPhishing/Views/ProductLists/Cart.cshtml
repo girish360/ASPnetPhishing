@@ -77,10 +77,10 @@
 @if (Model != null)
 {
     <div class="container">
-        <div class="col-md-7">
-            &nbsp;
+        <div class="col-md-6">
+            @Html.ActionLink("Back To Your List", "ProductList", "ProductLists", htmlAttributes: new { @class = "btn btn-default", @style = "margin:50px;"})
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
             <dl class="dl-horizontal">
                 <dt>
                     <strong>@Html.DisplayNameFor(model => model.Subtotal)</strong>
@@ -107,5 +107,6 @@
                 </dd>
             </dl>            
         </div>
+        <div class="col-md-2">&nbsp;</div>
     </div>
 }
