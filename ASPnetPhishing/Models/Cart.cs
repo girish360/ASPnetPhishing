@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace ASPnetPhishing.Models
 {
@@ -18,8 +19,11 @@ namespace ASPnetPhishing.Models
 
         public AspNetUser CartOwner { get; set; }
         public Invoice Invoice { get; set; }
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal Total { get; private set; }
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal Subtotal { get; private set; }
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal TaxAmount { get; private set; }
 
         public Cart()

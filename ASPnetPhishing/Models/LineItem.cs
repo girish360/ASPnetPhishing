@@ -11,6 +11,7 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class LineItem
     {
@@ -34,6 +35,8 @@ namespace ASPnetPhishing.Models
                 }
             }
         }
+
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal LineTotal { get; private set; }
 
         private void SetLineTotal()

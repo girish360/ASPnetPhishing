@@ -11,6 +11,7 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Product
     {
@@ -23,7 +24,9 @@ namespace ASPnetPhishing.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal Price { get; set; }
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal Cost { get; set; }
         public int CategoryId { get; set; }
         public string ImageFilename { get; set; }
