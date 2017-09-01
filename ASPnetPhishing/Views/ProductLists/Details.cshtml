@@ -60,7 +60,7 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(model => model.Id)
-                <div class="form-group">
+                <div class="form-group" style="display:inline-block;">
                     <input type="submit" value="Add To Cart" class="btn btn-success"/>
                 </div>
             }

@@ -60,6 +60,13 @@ namespace ASPnetPhishing.Models
 
         public void RemoveItem(LineItem li)
         {
+            foreach (LineItem item in this.cartItems)
+            {
+                if (li.Product.Id == item.Product.Id)
+                {
+                    li = item;
+                }
+            }
             this.CartItems.Remove(li);
             CalculateTotal();
         }
