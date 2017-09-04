@@ -81,18 +81,17 @@ namespace ASPnetPhishing.Controllers
                 if (Session["ProductType"] != null && Session["ProductType"].ToString().Equals("Permit"))
                 {
                     Product product = (Product)Session["Permit"];
-                    Product permit = db.Products.Find(product.Id);
 
                     item = new LineItem();
                     item.Qty = 1;
-                    item.Product = permit;
+                    item.ProductId = product.Id;
+                    item.Product = db.Products.Find(item.ProductId);
                     currentCart.AddItem(item);
                     Session["ProductType"] = "";
                 }
                 else
                 {
                     int qty;
-                    Product product = db.Products.Find(SelectedProduct.Id);
 
                     if (SelectedProduct.Id != 0)
                     {
@@ -106,7 +105,8 @@ namespace ASPnetPhishing.Controllers
                         }
                         item = new LineItem();
                         item.Qty = qty;
-                        item.Product = product;
+                        item.ProductId = SelectedProduct.Id;
+                        item.Product = db.Products.Find(item.ProductId);
                         currentCart.AddItem(item);
                     }
                 }
@@ -178,29 +178,33 @@ namespace ASPnetPhishing.Controllers
             }
         }
 
-        public ActionResult Confirmation(CardRecord cardRecord, Shipping shipping)
+        public ActionResult Confirmation(Invoice invoice)
         {
-            //Invoice currentInvoice = (Invoice)Session["CurrentInvoice"];
-            //// save payment record
-            //PaymentRecord pr = new PaymentRecord();
-            //pr.CardRecordId = cardRecord.Id;
-            //pr.PaymentAmount = Convert.ToDecimal(currentInvoice.Total);
-            //db.PaymentRecords.Add(pr);
-            //currentInvoice.PaymentId = pr.PaymentId;
+            Invoice currentInvoice = (Invoice)Session["CurrentInvoice"];
+            // save payment record
+            PaymentRecord pr = new PaymentRecord();
+            pr.CardRecordId = invoice.PaymentRecord.CardRecordId;
+            pr.PaymentAmount = Convert.ToDecimal(currentInvoice.Total);
+            db.PaymentRecords.Add(pr);
+            db.SaveChanges();
+            currentInvoice.PaymentId = pr.PaymentId;
+            currentInvoice.PaymentRecord = pr;
+            currentInvoice.PaymentRecord.CardRecord = db.CardRecords.Find(currentInvoice.PaymentRecord.CardRecordId);
 
-            //// save invoice
-            //db.Invoices.Add(currentInvoice);
+            // save invoice
+            currentInvoice.ShippingId = invoice.ShippingId;
+            currentInvoice.Shipping = db.Shippings.Find(currentInvoice.ShippingId);
+            db.Invoices.Add(currentInvoice);
+            db.SaveChanges();
 
-            //// save line items
-            //foreach (LineItem li in currentInvoice.LineItems)
-            //{
-            //    db.LineItems.Add(li);
-            //}
-            
+            // save line items
+            foreach (LineItem li in currentInvoice.LineItems)
+            {
+                db.LineItems.Add(li);
+            }
+            db.SaveChanges();
 
-            //db.SaveChanges();
-
-            return View(/*currentInvoice*/);
+            return View(currentInvoice);
         }
 
         protected override void Dispose(bool disposing)
