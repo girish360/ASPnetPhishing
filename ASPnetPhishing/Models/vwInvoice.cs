@@ -11,11 +11,13 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class vwInvoice
     {
         public int Invoice_Number { get; set; }
         public System.DateTime Invoice_Date { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Invoice_Total { get; set; }
         public string Customer_Email { get; set; }
         public string Card_Number { get; set; }

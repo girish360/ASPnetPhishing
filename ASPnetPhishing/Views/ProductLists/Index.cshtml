@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ASPnetPhishing.Models.ProductCategory>
+
+@{
+    ViewBag.Title = "Select Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ActionLink("Show All", "ProductList", new { id = -1 }, htmlAttributes: new { @class = "btn btn-default", @style = "width:200px;height:200px;display:inline-block;margin:30px;" })
+
+@foreach (var item in Model)
+{
+    @Html.ActionLink(item.CategoryName, "ProductList", new { id = item.Id}, htmlAttributes: new { @class = "btn btn-default", @style = "width:200px;height:200px;display:inline-block;margin:30px;"})
+}

@@ -11,16 +11,54 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class LineItem
     {
         public int LineItemId { get; set; }
         public int InvoiceId { get; set; }
         public int ProductId { get; set; }
-        public int Qty { get; set; }
-        public decimal LineTotal { get; set; }
+
+        private int qty;
+        public int? Qty
+        {
+            get
+            {
+                return this.qty;
+            }
+            set
+            {
+                this.qty = Convert.ToInt32(value);
+                if (this.Product != null)
+                {
+                    SetLineTotal();
+                }
+            }
+        }
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal LineTotal { get; private set; }
+
+        private void SetLineTotal()
+        {
+            this.LineTotal = this.qty * this.Product.Price;            
+        }
     
         public virtual Invoice Invoice { get; set; }
-        public virtual Product Product { get; set; }
+        private Product product;
+        public virtual Product Product
+        {
+            get
+            {
+                return this.product;
+            }
+            set
+            {
+                this.product = value;
+                if (this.Qty != null)
+                {
+                    SetLineTotal();
+                }
+            }
+        }
     }
 }

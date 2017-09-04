@@ -2,14 +2,11 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
+
 <table class="table">
     <tr>
         <th>
@@ -34,6 +31,8 @@
     </tr>
 
 @foreach (var item in Model) {
+    if (item.CategoryId == 5)
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -48,18 +47,17 @@
             @Html.DisplayFor(modelItem => item.Cost)
         </td>
         <td>
-            @*@Html.DisplayFor(modelItem => item.ImageFilename)*@
-            <img src="~/Images/@Url.Content(item.ImageFilename)" alt="" height="50" width="50" />
+            @Html.DisplayFor(modelItem => item.ImageFilename)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProductCategory.CategoryName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Add To Cart", "Cart", new { id = item.Id })
         </td>
     </tr>
+    }
 }
 
 </table>

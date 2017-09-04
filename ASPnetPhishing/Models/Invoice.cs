@@ -11,6 +11,7 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Invoice
     {
@@ -22,6 +23,7 @@ namespace ASPnetPhishing.Models
     
         public int Id { get; set; }
         public System.DateTime DateTime { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public Nullable<decimal> Total { get; set; }
         public string UserID { get; set; }
         public Nullable<int> PaymentId { get; set; }
