@@ -73,41 +73,56 @@ namespace ASPnetPhishing.Controllers
             {
                 currentCart = (Cart)Session["Cart"];
             }
-            
-            if (Session["ProductType"] != null && Session["ProductType"].ToString().Equals("Permit"))
-            {
-                Product product = (Product)Session["Permit"];
-                Product permit = db.Products.Find(product.Id);
 
-                item = new LineItem();
-                item.Qty = 1;
-                item.Product = permit;
-                currentCart.AddItem(item);
-                Session["ProductType"] = "";
-            }
-            else
+            // check to see if just to view the cart
+            if(Session["ViewCart"] == null)
             {
-                int qty;
-                Product product = db.Products.Find(SelectedProduct.Id);
-
-                if (SelectedProduct.Id != 0)
+                if (Session["ProductType"] != null && Session["ProductType"].ToString().Equals("Permit"))
                 {
-                    if (item.Qty == 0)
-                    {
-                        qty = 1;
-                    }
-                    else
-                    {
-                        qty = Convert.ToInt32(item.Qty);
-                    }
+                    Product product = (Product)Session["Permit"];
+                    Product permit = db.Products.Find(product.Id);
+
                     item = new LineItem();
-                    item.Qty = qty;
-                    item.Product = product;
+                    item.Qty = 1;
+                    item.Product = permit;
                     currentCart.AddItem(item);
+                    Session["ProductType"] = "";
                 }
+                else
+                {
+                    int qty;
+                    Product product = db.Products.Find(SelectedProduct.Id);
+
+                    if (SelectedProduct.Id != 0)
+                    {
+                        if (item.Qty == 0)
+                        {
+                            qty = 1;
+                        }
+                        else
+                        {
+                            qty = Convert.ToInt32(item.Qty);
+                        }
+                        item = new LineItem();
+                        item.Qty = qty;
+                        item.Product = product;
+                        currentCart.AddItem(item);
+                    }
+                }
+                Session["Cart"] = currentCart;
             }
-            Session["Cart"] = currentCart;
+            else if (Session["ViewCart"].ToString().Equals("ViewCart"))
+            {
+                Session["ViewCart"] = null;
+            }
+            
             return View(currentCart);
+        }
+
+        public ActionResult ViewCart()
+        {
+            Session["ViewCart"] = "ViewCart";
+            return RedirectToAction("Cart");
         }
 
         public ActionResult UpdateQty(LineItem item)
