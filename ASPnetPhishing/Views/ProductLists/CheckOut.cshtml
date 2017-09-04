@@ -1,0 +1,61 @@
+﻿@model ASPnetPhishing.Models.Invoice
+
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CheckOut</h2>
+
+<hr />
+
+<h2>Please select your payment method and enter your shipping information.</h2>
+
+@using (Html.BeginForm("Confirmation", "ProductLists", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.UserID)
+        @Html.HiddenFor(model => model.PaymentRecord.CardRecordId)
+        @Html.HiddenFor(model => model.ShippingId)
+
+        <dl class="dl-horizontal">
+            <dt>
+                Invoice Date
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateTime)
+            </dd>
+            <dt>
+                Invoice Total
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Total)
+            </dd>
+        </dl>
+
+        <hr />
+
+        <h4>Using Card:</h4>
+        @Html.DropDownListFor(c => c.PaymentRecord.CardRecord.CardNumber, (SelectList) ViewBag.Card, "Select a Card")
+
+        @Html.ActionLink("Add New Card", "AddCard", "ProductLists",  htmlAttributes: new { @class = "btn btn-warning"})
+
+        <h4>Ship To:</h4>
+        @Html.DropDownListFor(s => s.Shipping.ShippingAddress, (SelectList) ViewBag.Shipping, "Select an Address")
+
+        @Html.ActionLink("Add New Shipping Address", "AddAddress", "ProductLists", htmlAttributes: new { @class = "btn btn-warning"})
+
+        <hr />
+
+        <div style="text-align:center;">
+            <input type="submit" value="Proceed to Checkout" class="btn btn-success" />
+        </div>
+</div>
+
+}

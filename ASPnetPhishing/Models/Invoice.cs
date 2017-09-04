@@ -12,7 +12,7 @@ namespace ASPnetPhishing.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+
     public partial class Invoice
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,8 +20,9 @@ namespace ASPnetPhishing.Models
         {
             this.LineItems = new HashSet<LineItem>();
         }
-    
+
         public int Id { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime DateTime { get; set; }
         [DisplayFormat(DataFormatString = "{0:C}")]
         public Nullable<decimal> Total { get; set; }

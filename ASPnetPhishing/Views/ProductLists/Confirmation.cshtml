@@ -1,0 +1,31 @@
+﻿@model ASPnetPhishing.Models.Invoice
+
+@{
+    ViewBag.Title = "Confirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Confirmation</h2>
+
+<h4>Thank you for your purchase, @Model.AspNetUser.UserName!</h4>
+<h4>Your purchased item/s will be shipped in the next 1 - 2 business day/s to the following address:</h4>
+
+<h5>
+    @Model.Shipping.FirstName <span>_</span> @Model.Shipping.LastName <br />
+    @Model.Shipping.ShippingAddress <br />
+    @Model.Shipping.ShippingCity <span>, </span> @Model.Shipping.ShippingState <span>_</span> @Model.Shipping.ShippingZipCode
+</h5>
+
+<h4>Your card information:</h4>
+
+<h5>
+    <span>Amount: </span> @Model.PaymentRecord.PaymentAmount <br />
+    <span>Card Number: </span>@Model.PaymentRecord.CardRecord.CardNumber <br />
+    <span>Expiration Date: </span> @Model.PaymentRecord.CardRecord.ExpDate <br />
+    <span>CCV: </span> @Model.PaymentRecord.CardRecord.CCV <br />
+    @Model.PaymentRecord.CardRecord.BillingAddress <br />
+    @Model.PaymentRecord.CardRecord.BillingCity <span>, </span> @Model.PaymentRecord.CardRecord.BillingCity <span>_</span> @Model.PaymentRecord.CardRecord.BillingZip
+</h5>
+
+
+<h4>We appreciate your business.</h4>

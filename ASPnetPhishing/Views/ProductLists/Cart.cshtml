@@ -114,6 +114,8 @@
                 </dd>
             </dl>            
         </div>
-        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-2">
+            @Html.ActionLink("Proceed to Checkout", "CheckOut", null, htmlAttributes: new { @class = "btn btn-success"})
+        </div>
     </div>
 }

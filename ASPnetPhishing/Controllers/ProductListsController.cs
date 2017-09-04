@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ASPnetPhishing.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ASPnetPhishing.Controllers
 {
@@ -140,6 +141,66 @@ namespace ASPnetPhishing.Controllers
             currentCart.RemoveItem(item);
             Session["Cart"] = currentCart;
             return RedirectToAction("Cart");
+        }
+
+        public ActionResult CheckOut()
+        {
+            if (User.Identity.GetUserId() != null)
+            { 
+                Cart cartToCheckout = (Cart) Session["Cart"];
+                Invoice currentInvoice = null;
+                if (Session["CurrentInvoice"] != null)
+                {
+                    currentInvoice = (Invoice) Session["CurrentInvoice"];
+                }
+                else
+                {
+                    currentInvoice = new Invoice();
+                }
+            
+                currentInvoice.DateTime = DateTime.Now;
+                currentInvoice.UserID = User.Identity.GetUserId();
+                foreach (LineItem li in cartToCheckout.CartItems)
+                {
+                    currentInvoice.LineItems.Add(li);
+                }
+                currentInvoice.Total = cartToCheckout.Total;
+            
+                ViewBag.Card = new SelectList(db.CardRecords.Where(cr => cr.CustomerId == currentInvoice.UserID).ToList(), "Id", "CardNumber");
+                ViewBag.Shipping = new SelectList(db.Shippings.Where(s => s.CustomerId == currentInvoice.UserID).ToList(), "Id", "ShippingAddress");
+                Session["CurrentInvoice"] = currentInvoice;
+            
+                return View(currentInvoice);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
+        public ActionResult Confirmation(CardRecord cardRecord, Shipping shipping)
+        {
+            //Invoice currentInvoice = (Invoice)Session["CurrentInvoice"];
+            //// save payment record
+            //PaymentRecord pr = new PaymentRecord();
+            //pr.CardRecordId = cardRecord.Id;
+            //pr.PaymentAmount = Convert.ToDecimal(currentInvoice.Total);
+            //db.PaymentRecords.Add(pr);
+            //currentInvoice.PaymentId = pr.PaymentId;
+
+            //// save invoice
+            //db.Invoices.Add(currentInvoice);
+
+            //// save line items
+            //foreach (LineItem li in currentInvoice.LineItems)
+            //{
+            //    db.LineItems.Add(li);
+            //}
+            
+
+            //db.SaveChanges();
+
+            return View(/*currentInvoice*/);
         }
 
         protected override void Dispose(bool disposing)
