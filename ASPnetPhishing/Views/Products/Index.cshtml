@@ -49,7 +49,14 @@
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.ImageFilename)*@
-            <img src="~/Images/@Url.Content(item.ImageFilename)" alt="" height="50" width="50" />
+            @if (item.ImageFilename != null)
+            {
+                <img src="~/Images/@Url.Content(item.ImageFilename)" alt="" height="50" width="50" />
+            }
+            else
+            {
+                <img src="~/Images/noImage.png" alt="" height="50" width="50" />
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProductCategory.CategoryName)

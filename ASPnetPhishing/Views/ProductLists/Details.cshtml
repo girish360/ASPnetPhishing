@@ -12,7 +12,14 @@
     <hr />
     <div class="container">
         <div class="col-lg-4">
-            <img src="~/Images/@Url.Content(Model.ImageFilename)" alt="" height="250" width="250" />
+            @if (Model.ImageFilename != null)
+            {
+                <img src="~/Images/@Url.Content(Model.ImageFilename)" alt="" height="250" width="250" />
+            }
+            else
+            {
+                <img src="~/Images/noImage.png" alt="" height="250" width="250" />
+            }
         </div>
         <div class="col-lg-8">
             <dl class="dl-horizontal">
