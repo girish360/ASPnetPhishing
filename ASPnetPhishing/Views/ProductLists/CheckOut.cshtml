@@ -51,6 +51,13 @@
 
         <hr />
 
+        <div class="container">
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <h3 class="text-danger">@*@Html.Label((string) ViewBag.ErrorMessage)*@Please select a card on file and shipping option before proceed to checkout.</h3>
+            }
+        </div>
+
         <div style="text-align:center;">
             <input type="submit" value="Proceed to Checkout" class="btn btn-success" />
         </div>

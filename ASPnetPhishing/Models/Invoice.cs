@@ -18,7 +18,7 @@ namespace ASPnetPhishing.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Invoice()
         {
-            this.LineItems = new HashSet<LineItem>();
+            this.LineItems = new List<LineItem>();
         }
 
         public int Id { get; set; }
@@ -34,6 +34,6 @@ namespace ASPnetPhishing.Models
         public virtual PaymentRecord PaymentRecord { get; set; }
         public virtual Shipping Shipping { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LineItem> LineItems { get; set; }
+        public virtual List<LineItem> LineItems { get; set; }
     }
 }

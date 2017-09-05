@@ -44,7 +44,7 @@ namespace ASPnetPhishing.Models
             }
             if (!duplicate)
             {
-                this.CartItems.Add(li);
+                this.cartItems.Add(li);
             }
             CalculateTotal();
 
