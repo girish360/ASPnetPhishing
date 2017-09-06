@@ -8,7 +8,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "SelectUser")
+    @Html.ActionLink("Create New", "Index", "ProductLists")
 </p>
 <table class="table">
     <tr>
@@ -84,9 +84,8 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Details", "Details", new { id=item.Invoice_Number }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Invoice_Number })
         </td>
     </tr>
 }
