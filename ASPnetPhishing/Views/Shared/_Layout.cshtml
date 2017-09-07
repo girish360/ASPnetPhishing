@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
+<body style="background-color:#323732;">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             
@@ -21,23 +21,25 @@
                     <li>@Html.ActionLink("Permit", "Index", "Permit")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
-</div>
+            </div>
         </div>
     </div>
 
-    @using Microsoft.AspNet.Identity
-    @if (Request.IsAuthenticated)
-    {
-        @Html.Partial("_ManagerNav") 
-    }
+    <div class="container body-content" style="background-color:#E6EDE6;min-height:700px;margin-bottom:0px;">
+        @using Microsoft.AspNet.Identity
+        @if (Request.IsAuthenticated)
+        {
+            @Html.Partial("_ManagerNav")
+        }
 
-    <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        
     </div>
+
+    <footer class="modal-footer navbar-inverse" style="text-align:center;margin-top:0px;">
+        <p style="color:antiquewhite;">&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

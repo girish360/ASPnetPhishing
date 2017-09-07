@@ -115,7 +115,10 @@
             </dl>            
         </div>
         <div class="col-md-2">
-            @Html.ActionLink("Proceed to Checkout", "CheckOut", null, htmlAttributes: new { @class = "btn btn-success"})
+            @if (Model.CartItems.Count > 0)
+            {
+                @Html.ActionLink("Proceed to Checkout", "CheckOut", null, htmlAttributes: new { @class = "btn btn-success" })
+            }
         </div>
     </div>
 }

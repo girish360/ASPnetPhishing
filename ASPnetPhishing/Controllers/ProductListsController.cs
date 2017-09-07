@@ -128,9 +128,17 @@ namespace ASPnetPhishing.Controllers
 
         public ActionResult UpdateQty(LineItem item)
         {
-            Cart currentCart = (Cart) Session["Cart"];
-            item.Product = db.Products.Find(item.Product.Id);
-            currentCart.UpdateItem(item);
+            Cart currentCart = (Cart)Session["Cart"];
+            if (item.Qty > 0)
+            {
+                item.Product = db.Products.Find(item.Product.Id);
+                currentCart.UpdateItem(item);
+            }
+            else
+            {
+                currentCart.RemoveItem(item);
+            }
+
             Session["Cart"] = currentCart;
             return RedirectToAction("Cart");
         }
@@ -192,30 +200,76 @@ namespace ASPnetPhishing.Controllers
             }
         }
 
-        public ActionResult CheckOut()
+        public ActionResult CheckOut(Invoice invoice)
         {
             if (User.Identity.GetUserId() != null)
-            { 
-                Cart cartToCheckout = (Cart) Session["Cart"];
-                Invoice currentInvoice = null;
-                if (Session["CurrentInvoice"] != null)
+            {
+                if (invoice.ShippingId != null && invoice.PaymentRecord.CardRecordId != 0)
                 {
-                    currentInvoice = (Invoice) Session["CurrentInvoice"];
+                    Invoice currentInvoice = (Invoice)Session["CurrentInvoice"];
+                    Cart currentCart = (Cart)Session["Cart"];
+                    // save payment record
+                    PaymentRecord pr = new PaymentRecord();
+                    pr.CardRecordId = invoice.PaymentRecord.CardRecordId;
+                    pr.PaymentAmount = Convert.ToDecimal(currentInvoice.Total);
+                    db.PaymentRecords.Add(pr);
+                    db.SaveChanges();
+
+                    // save invoice
+                    currentInvoice.PaymentId = pr.PaymentId;
+                    currentInvoice.PaymentRecord = pr;
+                    currentInvoice.PaymentRecord.CardRecord = db.CardRecords.Find(currentInvoice.PaymentRecord.CardRecordId);
+                    currentInvoice.ShippingId = invoice.ShippingId;
+                    currentInvoice.Shipping = db.Shippings.Find(currentInvoice.ShippingId);
+                    currentInvoice.AspNetUser = db.AspNetUsers.Find(currentInvoice.UserID);
+                    db.Invoices.Add(currentInvoice);
+                    db.SaveChanges();
+
+                    // save lineitems
+                    foreach (LineItem li in currentCart.CartItems)
+                    {
+                        db.LineItems.Add(new LineItem(currentInvoice.Id, Convert.ToInt32(li.Qty), db.Products.Find(li.ProductId)));
+                    }
+                    db.SaveChanges();
+
+                    foreach (LineItem li in db.LineItems.Where(li => li.InvoiceId == currentInvoice.Id))
+                    {
+                        currentInvoice.LineItems.Add(li);
+                    }
+
+                    return RedirectToAction("Confirmation");
                 }
                 else
                 {
-                    currentInvoice = new Invoice();
+                    Cart cartToCheckout = (Cart)Session["Cart"];
+                    Invoice currentInvoice = null;
+                    if (Session["CurrentInvoice"] != null)
+                    {
+                        currentInvoice = (Invoice)Session["CurrentInvoice"];
+                    }
+                    else
+                    {
+                        currentInvoice = new Invoice();
+                    }
+
+                    currentInvoice.DateTime = DateTime.Now;
+                    currentInvoice.UserID = User.Identity.GetUserId();
+                    currentInvoice.Total = cartToCheckout.Total;
+
+                    ViewBag.Card = new SelectList(db.CardRecords.Where(cr => cr.CustomerId == currentInvoice.UserID).ToList(), "Id", "CardNumber");
+                    ViewBag.Shipping = new SelectList(db.Shippings.Where(s => s.CustomerId == currentInvoice.UserID).ToList(), "Id", "ShippingAddress");
+
+                    if (invoice.PaymentRecord != null && invoice.PaymentRecord.CardRecordId == 0)
+                    {
+                        ViewBag.CardMessage = "Please select a card on file or create a new card record.";
+                    }
+                    if (invoice.PaymentRecord != null && invoice.ShippingId == null)
+                    {
+                        ViewBag.ShippingMessage = "Please select a shipping address.";
+                    }
+                    Session["CurrentInvoice"] = currentInvoice;    
+                    return View(currentInvoice);
                 }
-            
-                currentInvoice.DateTime = DateTime.Now;
-                currentInvoice.UserID = User.Identity.GetUserId();
-                currentInvoice.Total = cartToCheckout.Total;
-            
-                ViewBag.Card = new SelectList(db.CardRecords.Where(cr => cr.CustomerId == currentInvoice.UserID).ToList(), "Id", "CardNumber");
-                ViewBag.Shipping = new SelectList(db.Shippings.Where(s => s.CustomerId == currentInvoice.UserID).ToList(), "Id", "ShippingAddress");
-                Session["CurrentInvoice"] = currentInvoice;
-            
-                return View(currentInvoice);
             }
             else
             {
@@ -223,51 +277,13 @@ namespace ASPnetPhishing.Controllers
             }
         }
 
-        public ActionResult Confirmation(Invoice invoice)
+        public ActionResult Confirmation()
         {
-            if (invoice.ShippingId != null && invoice.PaymentRecord != null)
-            { 
-                Invoice currentInvoice = (Invoice)Session["CurrentInvoice"];
-                Cart currentCart = (Cart)Session["Cart"];
-                // save payment record
-                PaymentRecord pr = new PaymentRecord();
-                pr.CardRecordId = invoice.PaymentRecord.CardRecordId;
-                pr.PaymentAmount = Convert.ToDecimal(currentInvoice.Total);
-                db.PaymentRecords.Add(pr);
-                db.SaveChanges();
+            Invoice invoice = (Invoice) Session["CurrentInvoice"];
 
-                // save invoice
-                currentInvoice.PaymentId = pr.PaymentId;
-                currentInvoice.PaymentRecord = pr;
-                currentInvoice.PaymentRecord.CardRecord = db.CardRecords.Find(currentInvoice.PaymentRecord.CardRecordId);
-                currentInvoice.ShippingId = invoice.ShippingId;
-                currentInvoice.Shipping = db.Shippings.Find(currentInvoice.ShippingId);
-                currentInvoice.AspNetUser = db.AspNetUsers.Find(currentInvoice.UserID);
-                db.Invoices.Add(currentInvoice);
-                db.SaveChanges();
-
-                // save lineitems
-                foreach (LineItem li in currentCart.CartItems)
-                {
-                    db.LineItems.Add(new LineItem(currentInvoice.Id, Convert.ToInt32(li.Qty), db.Products.Find(li.ProductId)));
-                }
-                db.SaveChanges();
-
-                foreach (LineItem li in db.LineItems.Where(li => li.InvoiceId == currentInvoice.Id))
-                {
-                    currentInvoice.LineItems.Add(li);
-                }
-
-                Session["Cart"] = null;
-                Session["CurrentInvoice"] = null;
-
-                return View(currentInvoice);
-            }
-            else
-            {
-                ViewBag.ErrorMessage = "Please select a card on file and shipping option before proceed to checkout.";
-                return RedirectToAction("CheckOut", "ProductLists");
-            }
+            Session["Cart"] = null;
+            Session["CurrentInvoice"] = null;
+            return View(invoice);
         }
 
         protected override void Dispose(bool disposing)
