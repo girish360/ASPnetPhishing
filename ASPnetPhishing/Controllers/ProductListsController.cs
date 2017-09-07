@@ -143,6 +143,55 @@ namespace ASPnetPhishing.Controllers
             return RedirectToAction("Cart");
         }
 
+        // add card on file
+        public ActionResult AddCard()
+        {
+            CardRecord currentCard = new CardRecord();
+            currentCard.CustomerId = User.Identity.GetUserId();
+            return View(currentCard);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddCard([Bind(Include = "CustomerId, CardNumber, CCV, ExpDate, BillingAddress, BillingCity, BillingState, BillingZip, BillingEmail")] CardRecord cr)
+        {
+            if (ModelState.IsValid)
+            {
+                db.CardRecords.Add(cr);
+                db.SaveChanges();
+                return RedirectToAction("CheckOut");
+            }
+            else
+            {
+                return View();
+            }
+            
+        }
+
+        // add shipping information
+        public ActionResult AddShipping()
+        {
+            Shipping shipping = new Shipping();
+            shipping.CustomerId = User.Identity.GetUserId();
+            return View(shipping);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddShipping([Bind(Include ="CustomerId, FirstName, LastName, ShippingAddress, ShippingCity, ShippingState, ShippingZipCode, ShippingPhone, ShippingEmail")] Shipping shipping)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Shippings.Add(shipping);
+                db.SaveChanges();
+                return RedirectToAction("CheckOut");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
         public ActionResult CheckOut()
         {
             if (User.Identity.GetUserId() != null)
