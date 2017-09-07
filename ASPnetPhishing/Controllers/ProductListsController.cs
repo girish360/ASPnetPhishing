@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using ASPnetPhishing.Models;
 using Microsoft.AspNet.Identity;
+using System.IO;
+using System.Xml.Linq;
 
 namespace ASPnetPhishing.Controllers
 {
@@ -154,6 +156,21 @@ namespace ASPnetPhishing.Controllers
         // add card on file
         public ActionResult AddCard()
         {
+            // prepare states collection for dropdown
+            var file = Path.Combine(Server.MapPath("~/App_Data"), "states.xml");
+            var model = new ASPnetPhishing.Models.HelperTools.UnitViewModel
+            {
+                Units =
+                    from unit in XDocument.Load(file).Document.Descendants("Unit")
+                    select new SelectListItem
+                    {
+                        Value = unit.Attribute("abbreviation").Value,
+                        Text = unit.Attribute("name").Value
+                    }
+            };
+
+            ViewData["states"] = model;
+
             CardRecord currentCard = new CardRecord();
             currentCard.CustomerId = User.Identity.GetUserId();
             return View(currentCard);

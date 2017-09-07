@@ -11,6 +11,7 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Shipping
     {
@@ -22,13 +23,21 @@ namespace ASPnetPhishing.Models
     
         public int Id { get; set; }
         public string CustomerId { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public string ShippingAddress { get; set; }
+        [Required]
         public string ShippingCity { get; set; }
+        [Required]
         public string ShippingState { get; set; }
+        [Required]
         public string ShippingZipCode { get; set; }
+        [Required]
         public string ShippingPhone { get; set; }
+        [Required]
         public string ShippingEmail { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }

@@ -11,6 +11,7 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class CardRecord
     {
@@ -22,12 +23,19 @@ namespace ASPnetPhishing.Models
     
         public int Id { get; set; }
         public string CustomerId { get; set; }
+        [Required]
         public string CardNumber { get; set; }
+        [Required]
         public string CCV { get; set; }
+        [Required]
         public string ExpDate { get; set; }
+        [Required]
         public string BillingAddress { get; set; }
+        [Required]
         public string BillingCity { get; set; }
+        [Required]
         public string BillingState { get; set; }
+        [Required]
         public string BillingZip { get; set; }
         public string BillingEmail { get; set; }
     
