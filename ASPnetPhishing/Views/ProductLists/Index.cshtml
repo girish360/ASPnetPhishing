@@ -5,7 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <figure style="display:inline-block;">
-    @Html.ActionLink("Show All", "ProductList", new { id = -1 }, htmlAttributes: new { @class = "btn btn-default", @style = "width:200px;height:200px;display:inline-block;margin:30px;" })
+    <a href="@Url.Action("ProductList", "ProductLists", new { id = -1 })">
+        <img src="~/Images/all.png" style="width:200px;height:200px;display:inline-block;margin:30px;" class="btn btn-default" />
+    </a>
     <figcaption style="text-align:center;">Show All</figcaption>
 </figure>
 
@@ -15,7 +17,7 @@
     //@Html.ActionLink(item.CategoryName, "ProductList", new { id = item.Id}, htmlAttributes: new { @class = "btn btn-default", @style = "width:200px;height:200px;display:inline-block;margin:30px;"})
     <figure style="display:inline-block;">
         <a href="@Url.Action("ProductList", "ProductLists", new { id = item.Id})">
-            <img src="@Url.Content("~/Images/" + item.Id.ToString() + ".jpg")" style="width:200px;height:200px;display:inline-block;margin:30px;" class="btn btn-default" />
+            <img src="@Url.Content("~/Images/" + item.Id.ToString() + ".png")" style="width:200px;height:200px;display:inline-block;margin:30px;" class="btn btn-default" />
         </a>
         <figcaption style="text-align:center;">@item.CategoryName</figcaption>
     </figure>
