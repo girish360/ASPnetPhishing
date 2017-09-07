@@ -47,7 +47,7 @@
         <h4>Ship To:</h4>
         @Html.DropDownListFor(s => s.ShippingId, (SelectList) ViewBag.Shipping, "Select an Address", htmlAttributes: new { @class = "form-control", @style = "display:inline-block" })
 
-        @Html.ActionLink("Add New Shipping Address", "AddShipping", "ProductLists", htmlAttributes: new { @class = "btn btn-warning"})
+        @Html.ActionLink("Add New Shipping Address", "AddAddress", "ProductLists", htmlAttributes: new { @class = "btn btn-warning"})
 
         <hr />
 

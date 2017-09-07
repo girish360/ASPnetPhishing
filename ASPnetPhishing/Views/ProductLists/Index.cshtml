@@ -4,10 +4,20 @@
     ViewBag.Title = "Select Category";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<figure style="display:inline-block;">
+    @Html.ActionLink("Show All", "ProductList", new { id = -1 }, htmlAttributes: new { @class = "btn btn-default", @style = "width:200px;height:200px;display:inline-block;margin:30px;" })
+    <figcaption style="text-align:center;">Show All</figcaption>
+</figure>
 
-@Html.ActionLink("Show All", "ProductList", new { id = -1 }, htmlAttributes: new { @class = "btn btn-default", @style = "width:200px;height:200px;display:inline-block;margin:30px;" })
 
 @foreach (var item in Model)
 {
-    @Html.ActionLink(item.CategoryName, "ProductList", new { id = item.Id}, htmlAttributes: new { @class = "btn btn-default", @style = "width:200px;height:200px;display:inline-block;margin:30px;"})
+    //@Html.ActionLink(item.CategoryName, "ProductList", new { id = item.Id}, htmlAttributes: new { @class = "btn btn-default", @style = "width:200px;height:200px;display:inline-block;margin:30px;"})
+    <figure style="display:inline-block;">
+        <a href="@Url.Action("ProductList", "ProductLists", new { id = item.Id})">
+            <img src="@Url.Content("~/Images/" + item.Id.ToString() + ".jpg")" style="width:200px;height:200px;display:inline-block;margin:30px;" class="btn btn-default" />
+        </a>
+        <figcaption style="text-align:center;">@item.CategoryName</figcaption>
+    </figure>
+
 }

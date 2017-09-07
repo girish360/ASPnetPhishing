@@ -282,6 +282,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\1.jpg" />
+    <Content Include="Images\2.jpg" />
+    <Content Include="Images\3.jpg" />
+    <Content Include="Images\4.jpg" />
+    <Content Include="Images\6.jpg" />
+    <Content Include="Images\7.jpg" />
     <Content Include="Images\big-reel.jpg" />
     <Content Include="Images\big-rod.jpg" />
     <Content Include="Images\cheap-boat.jpg" />
@@ -298,6 +304,7 @@
     <Content Include="Images\net.jpg" />
     <Content Include="Images\nice-boat.jpg" />
     <Content Include="Images\noImage.png" />
+    <Content Include="Images\permit.jpg" />
     <Content Include="Images\scale.jpg" />
     <Content Include="Images\soft-bait.jpg" />
     <Content Include="Images\stringer.jpg" />
@@ -422,8 +429,6 @@
     <Content Include="Views\ProductLists\ProductList.cshtml" />
     <Content Include="Views\ProductLists\CheckOut.cshtml" />
     <Content Include="Views\ProductLists\Confirmation.cshtml" />
-    <Content Include="Views\ProductLists\AddCard.cshtml" />
-    <Content Include="Views\ProductLists\AddShipping.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
