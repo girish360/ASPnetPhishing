@@ -38,7 +38,7 @@ namespace ASPnetPhishing.Models
         [StringLength(10, MinimumLength = 5, ErrorMessage = "Zip Code must be 5 or 10 digit long(xxxxx-xxxx).")]
         public string ShippingZipCode { get; set; }
         [Required]
-        [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone no.")]
+        [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone number.")]
         public string ShippingPhone { get; set; }
         [Required]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Please enter a valid Email address.")]

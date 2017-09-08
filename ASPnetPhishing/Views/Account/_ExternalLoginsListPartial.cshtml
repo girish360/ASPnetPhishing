@@ -2,7 +2,7 @@
 @using Microsoft.Owin.Security
 
 <h4>Use another service to log in.</h4>
-<hr />
+<hr style="border-top: 2px solid black;"/>
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
     if (loginProviders.Count() == 0) {

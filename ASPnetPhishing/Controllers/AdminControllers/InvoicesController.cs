@@ -20,14 +20,38 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             return View(db.vwInvoices.ToList());
         }
 
+        // POST: query Invoices table
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(int? invoiceId)
+        {
+            vwInvoice invoice = null;
+            if  (invoiceId != null)
+            {
+                invoice = db.vwInvoices.Where(v => v.Invoice_Number == invoiceId).SingleOrDefault();
+                if  (invoice != null)
+                {
+                    return View(db.vwInvoices.Where(v => v.Invoice_Number == invoiceId).ToList());
+                }
+                else
+                {
+                    return View(db.vwInvoices.ToList());
+                }
+            }
+            else
+            {
+                return View(db.vwInvoices.ToList());
+            }
+        }
+
         // GET: Invoices/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (id == null || id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            vwInvoice vwInvoice = db.vwInvoices.Find(id);
+            vwInvoice vwInvoice = db.vwInvoices.Where(vwi => vwi.Invoice_Number == id).SingleOrDefault();
             if (vwInvoice == null)
             {
                 return HttpNotFound();

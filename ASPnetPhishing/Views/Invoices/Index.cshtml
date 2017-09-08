@@ -1,15 +1,35 @@
 ﻿@model IEnumerable<ASPnetPhishing.Models.vwInvoice>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Invoices";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Invoices</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Index", "ProductLists")
+<p>    
+    <a href="@Url.Content("~/ProductLists")" class="btn btn-warning">Create New</a>
 </p>
+
+<hr style="border-top: 2px solid black;" />
+
+@using (Html.BeginForm("Index", "Invoices", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container form-horizontal">
+        <div class="col-md-3">
+            @Html.Label(" Search Invoice Number", new { @class = "control-label" })
+        </div>
+        <div class="col-md-9">
+            @Html.TextBox("invoiceId", "", new { @class = "form-control", @type = "number", @style = "display: inline-block;"})
+            <input type="submit" value="Search" class="btn btn-success" />
+            @Html.ActionLink("Show All", "Index", "Invoices", new { @class = "btn btn-success" } )
+        </div>
+    </div>
+}
+
+<hr style="border-top: 2px solid black;"/>
+
 <table class="table">
     <tr>
         <th>
@@ -48,7 +68,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Invoice_Number)
@@ -84,8 +105,8 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.Invoice_Number }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Invoice_Number })
+            @Html.ActionLink("Details", "Details", new { id = item.Invoice_Number }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Invoice_Number })
         </td>
     </tr>
 }

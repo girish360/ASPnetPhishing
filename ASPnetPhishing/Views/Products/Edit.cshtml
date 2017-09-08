@@ -24,7 +24,7 @@
             <img src="~/Images/noImage.png" alt="" height="250" width="250" />
         }
 
-        <hr />
+        <hr style="border-top: 2px solid black;"/>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
