@@ -56,6 +56,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             {
                 return HttpNotFound();
             }
+            ViewBag.LineItems = db.LineItems.Where(li => li.InvoiceId == id).ToList();
             return View(vwInvoice);
         }
 
