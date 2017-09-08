@@ -206,6 +206,7 @@
     <Compile Include="Controllers\AdminControllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\AdminControllers\ProductsController.cs" />
     <Compile Include="Controllers\AdminControllers\ShippingsController.cs" />
+    <Compile Include="Controllers\AdminControllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PermitController.cs" />
