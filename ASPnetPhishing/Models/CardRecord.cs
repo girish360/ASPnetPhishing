@@ -24,10 +24,16 @@ namespace ASPnetPhishing.Models
         public int Id { get; set; }
         public string CustomerId { get; set; }
         [Required]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Card number must be a numeric entry")]
+        [StringLength(16, MinimumLength = 16, ErrorMessage ="Card number must be 16 digit long.")]
         public string CardNumber { get; set; }
         [Required]
+        [RegularExpression("([0-9]+)", ErrorMessage = "CCV must be a numeric entry")]
+        [StringLength(3, MinimumLength = 3, ErrorMessage = "CCV must be 3 digit long.")]
         public string CCV { get; set; }
         [Required]
+        [RegularExpression(pattern: "([0-1][0-9](/)[0-9][0-9])", ErrorMessage = "Expiration date must be in 'MM/YY' format.")]
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "Expiration date must be 5 digit long. Use 'MM/YY' format.")]
         public string ExpDate { get; set; }
         [Required]
         public string BillingAddress { get; set; }
@@ -36,7 +42,11 @@ namespace ASPnetPhishing.Models
         [Required]
         public string BillingState { get; set; }
         [Required]
+        [RegularExpression("([0-9]+(-)?[0-9]+)", ErrorMessage = "Zip Code must be a numeric entry")]
+        [StringLength(10, MinimumLength = 5, ErrorMessage = "Zip Code must be 5 or 10 digit long(xxxxx-xxxx).")]
         public string BillingZip { get; set; }
+
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
         public string BillingEmail { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }

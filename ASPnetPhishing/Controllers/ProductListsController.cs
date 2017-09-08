@@ -157,19 +157,28 @@ namespace ASPnetPhishing.Controllers
         public ActionResult AddCard()
         {
             // prepare states collection for dropdown
-            var file = Path.Combine(Server.MapPath("~/App_Data"), "states.xml");
-            var model = new ASPnetPhishing.Models.HelperTools.UnitViewModel
-            {
-                Units =
-                    from unit in XDocument.Load(file).Document.Descendants("Unit")
-                    select new SelectListItem
-                    {
-                        Value = unit.Attribute("abbreviation").Value,
-                        Text = unit.Attribute("name").Value
-                    }
-            };
+            var model = XDocument.Load(Server.MapPath(Url.Content("~/App_Data/states.xml")));
+            IEnumerable<XElement> result = from c in model.Elements("states").Elements("state") select c;
 
-            ViewData["states"] = model;
+            var listItems = new List<SelectListItem>();
+
+            listItems.Add(new SelectListItem
+            {
+                Text = "--- Please select a State ---",
+                Value = "",
+            });
+            foreach (var xElement in result)
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = xElement.Attribute("name").Value,
+                    Value = xElement.Attribute("abbreviation").Value,
+                });
+            }
+
+            SelectList selectList = new SelectList(listItems, "Value", "Text");
+
+            ViewBag.States = selectList;
 
             CardRecord currentCard = new CardRecord();
             currentCard.CustomerId = User.Identity.GetUserId();
@@ -196,6 +205,30 @@ namespace ASPnetPhishing.Controllers
         // add shipping information
         public ActionResult AddShipping()
         {
+            // prepare states collection for dropdown
+            var model = XDocument.Load(Server.MapPath(Url.Content("~/App_Data/states.xml")));
+            IEnumerable<XElement> result = from c in model.Elements("states").Elements("state") select c;
+
+            var listItems = new List<SelectListItem>();
+
+            listItems.Add(new SelectListItem
+            {
+                Text = "--- Please select a State ---",
+                Value = "",
+            });
+            foreach (var xElement in result)
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = xElement.Attribute("name").Value,
+                    Value = xElement.Attribute("abbreviation").Value,
+                });
+            }
+
+            SelectList selectList = new SelectList(listItems, "Value", "Text");
+
+            ViewBag.States = selectList;
+
             Shipping shipping = new Shipping();
             shipping.CustomerId = User.Identity.GetUserId();
             return View(shipping);

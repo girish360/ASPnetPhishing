@@ -20,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CardNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CardNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.CardNumber, new { @class = "form-control", @maxlength = "16" })
                 @Html.ValidationMessageFor(model => model.CardNumber, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CCV, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CCV, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.CCV, new { @class = "form-control", @maxlength = "3" } )
                 @Html.ValidationMessageFor(model => model.CCV, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ExpDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.ExpDate, new { @class = "form-control", @placeholder = "MM/YY" } )
                 @Html.ValidationMessageFor(model => model.ExpDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -60,7 +60,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BillingState, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.BillingState, new SelectList(((ASPnetPhishing.Models.HelperTools.UnitViewModel)ViewData["states"]).Units, "Value", "Text"),  new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.BillingState, (SelectList) ViewBag.States,  new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.BillingState, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -68,7 +68,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BillingZip, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BillingZip, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.BillingZip, new { @class = "form-control", @maxlength = "10" })
                 @Html.ValidationMessageFor(model => model.BillingZip, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -76,7 +76,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BillingEmail, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BillingEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.BillingEmail, new { @class = "form-control", @placeholder = "your@domain.com" })
                 @Html.ValidationMessageFor(model => model.BillingEmail, "", new { @class = "text-danger" })
             </div>
         </div>
