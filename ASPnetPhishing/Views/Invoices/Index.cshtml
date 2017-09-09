@@ -105,8 +105,8 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.Invoice_Number }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Invoice_Number })
+            @Html.ActionLink("Details", "Details", new { id = item.Invoice_Number }, new { @class = "btn btn-warning"}) 
+            @*@Html.ActionLink("Delete", "Delete", new { id = item.Invoice_Number })*@
         </td>
     </tr>
 }

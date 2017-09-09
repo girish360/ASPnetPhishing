@@ -434,6 +434,8 @@
     <Content Include="Views\ProductLists\Confirmation.cshtml" />
     <Content Include="Views\ProductLists\AddCard.cshtml" />
     <Content Include="Views\ProductLists\AddShipping.cshtml" />
+    <Content Include="Views\Invoices\Edit.cshtml" />
+    <Content Include="Views\Invoices\AddLineItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

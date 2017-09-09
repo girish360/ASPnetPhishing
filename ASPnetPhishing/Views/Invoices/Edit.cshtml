@@ -1,0 +1,136 @@
+﻿@model ASPnetPhishing.Models.Invoice
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Invoice</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateTime, "Invoice Date", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Total, "Invoice Total", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.UserID, "Customer", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("UserID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PaymentId, "Payment Number", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PaymentId", (SelectList) ViewBag.Card, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PaymentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShippingId, "Shipping Number", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ShippingId", (SelectList) ViewBag.Shipping, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ShippingId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<hr style="border-top: 2px solid black;" />
+
+<h2>Line Items</h2>
+
+@Html.ActionLink("Add New", "AddLineItem", "Invoices", htmlAttributes: new { @class = "btn btn-warning"})
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            Quantity
+        </th>
+        <th>
+            @*this is for image*@
+        </th>
+        <th>
+            Product Name
+        </th>
+        <th>
+            Product Price
+        </th>
+        <th>
+            Total
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in (List<ASPnetPhishing.Models.LineItem>)ViewBag.LineItems)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qty)
+            </td>
+            <td>
+                @if (item.Product.ImageFilename != null)
+                {
+                    <img src="~/Images/@Url.Content(item.Product.ImageFilename)" alt="" height="50" width="50" />
+                }
+                else
+                {
+                    <img src="~/Images/noImage.png" alt="" height="50" width="50" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LineTotal)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteLineItem", new { id = item.LineItemId }, new { @class = "btn btn-danger"})
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

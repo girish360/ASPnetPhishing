@@ -2,11 +2,12 @@
 @if (Request.IsAuthenticated)
 {
     <div class="container">
-        <ul class="nav navbar-nav" style="color:#5a6b4a;">
+        <ul class="nav nav-pills navbar-nav" >
             <li>@Html.ActionLink("Invoices", "Index", "Invoices")</li>
             <li>@Html.ActionLink("Payments", "Index", "Payments")</li>
             <li>@Html.ActionLink("Shipping", "Index", "Shippings")</li>
             <li>@Html.ActionLink("Products", "Index", "Products")</li>
+            <li>@Html.ActionLink("Product Categories", "Index", "ProductCategories")</li>
         </ul>
     </div>
 }

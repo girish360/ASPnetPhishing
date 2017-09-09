@@ -16,6 +16,7 @@ namespace ASPnetPhishing.Models
     public partial class vwInvoice
     {
         public int Invoice_Number { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime Invoice_Date { get; set; }
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Invoice_Total { get; set; }

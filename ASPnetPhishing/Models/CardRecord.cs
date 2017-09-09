@@ -26,6 +26,7 @@ namespace ASPnetPhishing.Models
         [Required]
         [RegularExpression("([0-9]+)", ErrorMessage = "Card number must be a numeric entry")]
         [StringLength(16, MinimumLength = 16, ErrorMessage ="Card number must be 16 digit long.")]
+        [CreditCard(ErrorMessage = "Please enter a valid credit/debit card number.")]
         public string CardNumber { get; set; }
         [Required]
         [RegularExpression("([0-9]+)", ErrorMessage = "CCV must be a numeric entry")]

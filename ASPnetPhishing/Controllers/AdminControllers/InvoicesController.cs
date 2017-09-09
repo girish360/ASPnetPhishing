@@ -60,6 +60,107 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             return View(vwInvoice);
         }
 
+        // GET: Invoices/Edit
+        public ActionResult Edit(int? id)
+        {
+            Invoice invoice = null;
+            if (id == null)
+            {
+                if (Session["EditInvoice"] == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                else
+                {
+                    invoice = (Invoice)Session["EditInvoice"];
+                }
+            }
+            else
+            {
+                invoice = db.Invoices.Find(id);
+                Session["EditInvoice"] = invoice;
+                
+            }
+            var cards = db.CardRecords.Where(cr => cr.CustomerId == invoice.UserID).ToList();
+            ViewBag.Card = new SelectList(cards, "Id", "CardNumber");
+            var shippingAddresses = db.Shippings.Where(s => s.CustomerId == invoice.UserID).ToList();
+            ViewBag.Shipping = new SelectList(shippingAddresses, "Id", "ShippingAddress");
+            ViewBag.LineItems = db.LineItems.Where(item => item.InvoiceId == invoice.Id).ToList();
+
+
+            return View(invoice);
+        }
+
+        // GET: Invoices/AddLineItem
+        public ActionResult AddLineItem(int? id, int? qty)
+        {
+            if (qty == null && id == null)
+            {
+                var products = db.Products.ToList();
+                return View(products);
+            }
+            else
+            {
+                Invoice invoice = (Invoice)Session["EditInvoice"];
+                LineItem li = new LineItem();
+                li.InvoiceId = invoice.Id;
+                li.Qty = qty;
+                li.ProductId = Convert.ToInt32(id);
+                li.Product = db.Products.Find(li.ProductId);
+
+                // save lineitem
+                db.LineItems.Add(li);
+                db.SaveChanges();
+
+                // modify and save invoice
+                List<LineItem> lis = db.LineItems.Where(litem => litem.InvoiceId == invoice.Id).ToList();
+                decimal total = 0m;
+                foreach (LineItem line in lis)
+                {
+                    total += line.LineTotal;
+                }
+                db.Invoices.Find(invoice.Id).Total = total * (1 + Cart.TAX);
+                db.SaveChanges();
+
+                Session["EditInvoice"] = db.Invoices.Find(invoice.Id);
+                return RedirectToAction("Edit");
+            }
+        }
+
+        // POST: Invoices/AddLineItem
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddLineItem(string productName)
+        {
+            var products = (from p in db.Products
+                            where p.Name.Contains(productName)
+                            select p).ToList();
+            return View(products);
+        }
+
+        // GET: Invoices/DeleteLineItem
+        public ActionResult DeleteLineItem(int id)
+        {
+            Invoice invoice = (Invoice)Session["EditInvoice"];
+
+            // remove item
+            db.LineItems.Remove(db.LineItems.Find(id));
+            db.SaveChanges();
+
+            // modify and save invoice
+            List<LineItem> lis = db.LineItems.Where(litem => litem.InvoiceId == invoice.Id).ToList();
+            decimal total = 0m;
+            foreach (LineItem line in lis)
+            {
+                total += line.LineTotal;
+            }
+            db.Invoices.Find(invoice.Id).Total = total * (1 + Cart.TAX);
+            db.SaveChanges();
+
+            Session["EditInvoice"] = db.Invoices.Find(invoice.Id);
+            return RedirectToAction("Edit");
+        }
+
         // GET: Invoices/Delete/5
         public ActionResult Delete(int? id)
         {
