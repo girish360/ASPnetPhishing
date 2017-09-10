@@ -307,6 +307,8 @@
     <Content Include="Images\net.jpg" />
     <Content Include="Images\nice-boat.jpg" />
     <Content Include="Images\noImage.png" />
+    <Content Include="Images\noProfileImage.jpg" />
+    <Content Include="Images\noProfileImage2.jpg" />
     <Content Include="Images\permit.jpg" />
     <Content Include="Images\scale.jpg" />
     <Content Include="Images\soft-bait.jpg" />
