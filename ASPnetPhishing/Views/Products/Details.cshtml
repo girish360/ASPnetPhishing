@@ -7,61 +7,71 @@
 
 <h2>Details</h2>
 
+<hr style="border-top: 2px solid black;" />
+
 <div>
     <h4>Product</h4>
-    <hr style="border-top: 2px solid black;"/>
-    @if (Model.ImageFilename != null)
+    <br />
+
+    <div class="col-md-4">
+        @if (Model.ImageFilename != null)
             {
-        <img src="~/Images/@Url.Content(Model.ImageFilename)" alt="" height="50" width="50" />
-    }
-    else
-    {
-        <img src="~/Images/noImage.png" alt="" height="50" width="50" />
-    }
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <img src="~/Images/@Url.Content(Model.ImageFilename)" alt="" height="250" width="250" />
+        }
+        else
+        {
+            <img src="~/Images/noImage.png" alt="" height="250" width="250" />
+        }
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    <div class="col-md-8">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Cost)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductCategory.CategoryName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Cost)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductCategory.CategoryName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductCategory.CategoryName)
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.ProductCategory.CategoryName)
+            </dd>
+
+        </dl>
+    </div>
 </div>
+
+<div style="clear:both;">&nbsp;</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-warning" }) 
+    @Html.ActionLink("<<   Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
 </p>

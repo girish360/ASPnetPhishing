@@ -7,10 +7,6 @@
 
 <h2>Invoices</h2>
 
-<p>    
-    <a href="@Url.Content("~/ProductLists")" class="btn btn-warning">Create New</a>
-</p>
-
 <hr style="border-top: 2px solid black;" />
 
 @using (Html.BeginForm("Index", "Invoices", FormMethod.Post))
@@ -29,6 +25,10 @@
 }
 
 <hr style="border-top: 2px solid black;"/>
+
+<p>
+    <a href="@Url.Content("~/ProductLists")" class="btn btn-warning">Create New</a>
+</p>
 
 <table class="table">
     <tr>
@@ -72,7 +72,10 @@
 {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Invoice_Number)
+            @*@Html.DisplayFor(modelItem => item.Invoice_Number)*@
+
+            <a class="btn btn-default" href="/Invoices/Details/@Url.Content(item.Invoice_Number.ToString())">@item.Invoice_Number</a>
+            
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Invoice_Date)
@@ -105,8 +108,7 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.Invoice_Number }, new { @class = "btn btn-warning"}) 
-            @*@Html.ActionLink("Delete", "Delete", new { id = item.Invoice_Number })*@
+            @Html.ActionLink("Edit", "Edit", new { id = item.Invoice_Number }, htmlAttributes: new { @class = "btn btn-warning" })
         </td>
     </tr>
 }

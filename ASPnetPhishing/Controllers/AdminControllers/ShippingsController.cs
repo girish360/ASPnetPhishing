@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ASPnetPhishing.Models;
+using System.Xml.Linq;
 
 namespace ASPnetPhishing.Controllers.AdminControllers
 {
@@ -36,11 +37,66 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             return View(shipping);
         }
 
-        // GET: Shippings/Create
-        public ActionResult Create()
+        // GET Shippings/SelectUser
+        public ActionResult SelectUser(int? id)
         {
-            ViewBag.CustomerId = new SelectList(db.AspNetUsers, "Id", "Email");
-            return View();
+            if (id == null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Create", new { customerId = id });
+            }
+        }
+
+        // POST: Shippings/SelectUser
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SelectUser(string userEmail)
+        {
+            var selecteduser = (from u in db.AspNetUsers
+                                where u.Email.Contains(userEmail)
+                                select u).ToList();
+            return View(selecteduser);
+        }
+
+        // GET: Shippings/Create
+        public ActionResult Create(string customerId)
+        {
+            if (customerId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                // prepare states collection for dropdown
+                var model = XDocument.Load(Server.MapPath(Url.Content("~/App_Data/states.xml")));
+                IEnumerable<XElement> result = from c in model.Elements("states").Elements("state") select c;
+
+                var listItems = new List<SelectListItem>();
+
+                listItems.Add(new SelectListItem
+                {
+                    Text = "--- Please select a State ---",
+                    Value = "",
+                });
+                foreach (var xElement in result)
+                {
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = xElement.Attribute("name").Value,
+                        Value = xElement.Attribute("abbreviation").Value,
+                    });
+                }
+                SelectList selectList = new SelectList(listItems, "Value", "Text");
+                ViewBag.States = selectList;
+
+                var newShipping = new Shipping();
+                newShipping.CustomerId = customerId;
+                newShipping.AspNetUser = db.AspNetUsers.Find(customerId);
+                return View(newShipping);
+            }            
         }
 
         // POST: Shippings/Create
@@ -73,6 +129,29 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             {
                 return HttpNotFound();
             }
+            // prepare states collection for dropdown
+            var model = XDocument.Load(Server.MapPath(Url.Content("~/App_Data/states.xml")));
+            IEnumerable<XElement> result = from c in model.Elements("states").Elements("state") select c;
+
+            var listItems = new List<SelectListItem>();
+
+            listItems.Add(new SelectListItem
+            {
+                Text = "--- Please select a State ---",
+                Value = "",
+            });
+            foreach (var xElement in result)
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = xElement.Attribute("name").Value,
+                    Value = xElement.Attribute("abbreviation").Value,
+                });
+            }
+
+            SelectList selectList = new SelectList(listItems, "Value", "Text", shipping.ShippingState);
+
+            ViewBag.States = selectList;
             ViewBag.CustomerId = new SelectList(db.AspNetUsers, "Id", "Email", shipping.CustomerId);
             return View(shipping);
         }

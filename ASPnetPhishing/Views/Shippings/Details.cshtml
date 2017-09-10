@@ -7,12 +7,23 @@
 
 <h2>Details</h2>
 
+<hr style="border-top: 2px solid black;" />
+
 <div>
     <h4>Shipping</h4>
-    <hr style="border-top: 2px solid black;"/>
+    <br />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            Customer
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+        <dt>
+            First Name
         </dt>
 
         <dd>
@@ -20,7 +31,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            Last Name
         </dt>
 
         <dd>
@@ -28,7 +39,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingAddress)
+            Shipping Address
         </dt>
 
         <dd>
@@ -36,7 +47,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingCity)
+            City
         </dt>
 
         <dd>
@@ -44,7 +55,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingState)
+            State
         </dt>
 
         <dd>
@@ -52,7 +63,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingZipCode)
+            Zip Code
         </dt>
 
         <dd>
@@ -60,7 +71,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingPhone)
+            Phone
         </dt>
 
         <dd>
@@ -68,24 +79,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingEmail)
+            Email
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ShippingEmail)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUser.Email)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-warning" }) 
+    @Html.ActionLink("<<   Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
 </p>
