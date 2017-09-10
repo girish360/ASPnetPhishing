@@ -7,9 +7,11 @@
 
 <h2>Details</h2>
 
+<hr style="border-top: 2px solid black;" />
+
 <div>
-    <h4>vwInvoice</h4>
-    <hr style="border-top: 2px solid black;"/>
+    <h4>Invoice</h4>
+    <br />
     <dl class="dl-horizontal">
         <dt>
             Invoice Number
@@ -104,14 +106,14 @@
 
 <div class="container">
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Invoice_Number }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Invoice_Number }, htmlAttributes: new { @class = "btn btn-warning"}) |
+        @Html.ActionLink("<<   Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-default"})
     </p>
 </div>
 
 <hr style="border-top: 2px solid black;" />
 
-<h2>Line Items</h2>
+<h4>Line Items</h4>
 
 <table class="table">
     <tr>
@@ -130,7 +132,6 @@
         <th>
             Total
         </th>
-        @*<th></th>*@
     </tr>
 
     @foreach (var item in (List<ASPnetPhishing.Models.LineItem>)ViewBag.LineItems)
@@ -158,10 +159,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.LineTotal)
             </td>
-            @*<td>
-                @Html.ActionLink("Edit", "EditLineItem", new { id = item.LineItemId }) |
-                @Html.ActionLink("Delete", "DeleteLineItem", new { id = item.LineItemId })
-            </td>*@
         </tr>
     }
 

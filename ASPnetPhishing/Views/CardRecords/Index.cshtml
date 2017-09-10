@@ -5,39 +5,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Card Records</h2>
+
+<hr style="border-top: 2px solid black;" />
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "SelectUser", null, htmlAttributes: new { @class = "btn btn-warning"})
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CardNumber)
+            Card Number
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CCV)
+            Customer
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ExpDate)
+            Billing Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BillingAddress)
+            City
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BillingCity)
+            State
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BillingState)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BillingZip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BillingEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+            Zip
         </th>
         <th></th>
     </tr>
@@ -48,10 +41,7 @@
             @Html.DisplayFor(modelItem => item.CardNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CCV)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpDate)
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.BillingAddress)
@@ -66,15 +56,8 @@
             @Html.DisplayFor(modelItem => item.BillingZip)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BillingEmail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, htmlAttributes: new { @class = "btn btn-warning"}) 
+            @Html.ActionLink("Details", "Details", new { id=item.Id }, htmlAttributes: new { @class = "btn btn-default"})
         </td>
     </tr>
 }

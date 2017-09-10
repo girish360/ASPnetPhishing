@@ -36,11 +36,44 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             return View(cardRecord);
         }
 
-        // GET: CardRecords/Create
-        public ActionResult Create()
+        // GET: CardRecords/SelectUser
+        public ActionResult SelectUser(int? id)
         {
-            ViewBag.CustomerId = new SelectList(db.AspNetUsers, "Id", "Email");
-            return View();
+            if (id == null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Create", new { customerId = id });
+            }
+        }
+
+        // POST: CardRecords/SelectUser
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SelectUser(string userEmail)
+        {
+            var selecteduser = (from u in db.AspNetUsers
+                                where u.Email.Contains(userEmail)
+                                select u).ToList();
+            return View(selecteduser);
+        }
+
+        // GET: CardRecords/Create
+        public ActionResult Create(string customerId)
+        {
+            if (customerId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var cardRecord = new CardRecord();
+                cardRecord.CustomerId = customerId;
+                cardRecord.AspNetUser = db.AspNetUsers.Find(cardRecord.CustomerId);
+                return View(cardRecord);
+            }
         }
 
         // POST: CardRecords/Create

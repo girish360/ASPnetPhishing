@@ -84,11 +84,30 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             var cards = db.CardRecords.Where(cr => cr.CustomerId == invoice.UserID).ToList();
             ViewBag.Card = new SelectList(cards, "Id", "CardNumber");
             var shippingAddresses = db.Shippings.Where(s => s.CustomerId == invoice.UserID).ToList();
-            ViewBag.Shipping = new SelectList(shippingAddresses, "Id", "ShippingAddress");
+            ViewBag.Shipping = new SelectList(shippingAddresses, "Id", "ShippingAddress", invoice.ShippingId);
             ViewBag.LineItems = db.LineItems.Where(item => item.InvoiceId == invoice.Id).ToList();
-
-
             return View(invoice);
+        }
+
+        // POST: Invoices/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Invoice invoice)
+        {
+            db.Invoices.Find(invoice.Id).ShippingId = invoice.ShippingId;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // POST: Invoices/EditPayment
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPayment(PaymentRecord pr, Invoice invoice)
+        {
+            db.PaymentRecords.Find(pr.PaymentId).CardRecordId = pr.CardRecordId;
+            db.SaveChanges();
+            Session["EditInvoice"] = db.Invoices.Find(invoice.Id);
+            return RedirectToAction("Edit");
         }
 
         // GET: Invoices/AddLineItem
@@ -120,6 +139,10 @@ namespace ASPnetPhishing.Controllers.AdminControllers
                     total += line.LineTotal;
                 }
                 db.Invoices.Find(invoice.Id).Total = total * (1 + Cart.TAX);
+                db.SaveChanges();
+
+                // modify and save payment
+                db.PaymentRecords.Find(invoice.PaymentId).PaymentAmount = total * (1 + Cart.TAX);
                 db.SaveChanges();
 
                 Session["EditInvoice"] = db.Invoices.Find(invoice.Id);
@@ -157,35 +180,39 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             db.Invoices.Find(invoice.Id).Total = total * (1 + Cart.TAX);
             db.SaveChanges();
 
+            // modify and save payment
+            db.PaymentRecords.Find(invoice.PaymentId).PaymentAmount = total * (1 + Cart.TAX);
+            db.SaveChanges();
+
             Session["EditInvoice"] = db.Invoices.Find(invoice.Id);
             return RedirectToAction("Edit");
         }
 
-        // GET: Invoices/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            vwInvoice vwInvoice = db.vwInvoices.Find(id);
-            if (vwInvoice == null)
-            {
-                return HttpNotFound();
-            }
-            return View(vwInvoice);
-        }
+        //// GET: Invoices/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    vwInvoice vwInvoice = db.vwInvoices.Find(id);
+        //    if (vwInvoice == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(vwInvoice);
+        //}
 
-        // POST: Invoices/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            vwInvoice vwInvoice = db.vwInvoices.Find(id);
-            db.vwInvoices.Remove(vwInvoice);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: Invoices/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    vwInvoice vwInvoice = db.vwInvoices.Find(id);
+        //    db.vwInvoices.Remove(vwInvoice);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

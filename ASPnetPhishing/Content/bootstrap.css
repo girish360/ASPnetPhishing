@@ -2245,9 +2245,9 @@ textarea.input-lg {
     }
 
 .btn-default {
-    color: #333333;
-    background-color: #ffffff;
-    border-color: #cccccc;
+    color: black;
+    background-color: #A5B694;
+    border-color: #5a6b4a;
 }
 
     .btn-default:hover,
@@ -2255,9 +2255,9 @@ textarea.input-lg {
     .btn-default:active,
     .btn-default.active,
     .open .dropdown-toggle.btn-default {
-        color: #333333;
-        background-color: #ebebeb;
-        border-color: #adadad;
+        color: antiquewhite;
+        background-color: #5a6b4a;
+        border-color: #A5B694;
     }
 
     .btn-default:active,
