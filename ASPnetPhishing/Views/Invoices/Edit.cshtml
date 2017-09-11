@@ -36,7 +36,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ShippingId, "Shipping Number", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ShippingId, "Shipping Address", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("ShippingId", (SelectList) ViewBag.Shipping, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ShippingId, "", new { @class = "text-danger" })
@@ -69,7 +69,7 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PaymentRecord.CardRecordId, "CardRecordId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PaymentRecord.CardRecordId, "Card Number", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("CardRecordId", new SelectList(new ASPnetPhishing.Models.AdminConnection().CardRecords.Where(cc => cc.CustomerId == Model.UserID).ToList(), "Id", "CardNumber", Model.PaymentRecord.CardRecordId), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PaymentRecord.CardRecordId, "", new { @class = "text-danger" })
@@ -77,7 +77,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PaymentRecord.PaymentAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PaymentRecord.PaymentAmount, "Payment Amount", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PaymentRecord.PaymentAmount, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                 @Html.ValidationMessageFor(model => model.PaymentRecord.PaymentAmount, "", new { @class = "text-danger" })
