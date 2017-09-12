@@ -205,6 +205,7 @@
     <Compile Include="Controllers\AdminControllers\PaymentsController.cs" />
     <Compile Include="Controllers\AdminControllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\AdminControllers\ProductsController.cs" />
+    <Compile Include="Controllers\AdminControllers\QuestionsController.cs" />
     <Compile Include="Controllers\AdminControllers\ShippingsController.cs" />
     <Compile Include="Controllers\AdminControllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -231,7 +232,7 @@
       <DependentUpon>AdminModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>AdminModel.tt</DependentUpon>
+      <DependentUpon>QuestionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CardRecord.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
@@ -254,6 +255,24 @@
     <Compile Include="Models\ProductCategory.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Question.cs">
+      <DependentUpon>QuestionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuestionModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuestionModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuestionModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuestionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuestionModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuestionModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Shipping.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
@@ -274,6 +293,7 @@
     <Content Include="App_Data\PaymentRecord.sql" />
     <Content Include="App_Data\Product.sql" />
     <Content Include="App_Data\ProductCategory.sql" />
+    <Content Include="App_Data\Question.sql" />
     <Content Include="App_Data\Shipping.sql" />
     <Content Include="App_Data\states.xml" />
     <Content Include="App_Data\vwInvoice.sql" />
@@ -327,6 +347,16 @@
       <DependentUpon>AdminModel.edmx</DependentUpon>
       <LastGenOutput>AdminModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\QuestionModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QuestionModel.edmx</DependentUpon>
+      <LastGenOutput>QuestionModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\QuestionModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QuestionModel.edmx</DependentUpon>
+      <LastGenOutput>QuestionModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -338,6 +368,13 @@
     </EntityDeploy>
     <Content Include="Models\AdminModel.edmx.diagram">
       <DependentUpon>AdminModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\QuestionModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QuestionModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\QuestionModel.edmx.diagram">
+      <DependentUpon>QuestionModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -437,6 +474,12 @@
     <Content Include="Views\Invoices\AddLineItem.cshtml" />
     <Content Include="Views\CardRecords\SelectUser.cshtml" />
     <Content Include="Views\Shippings\SelectUser.cshtml" />
+    <Content Include="Views\Questions\Create.cshtml" />
+    <Content Include="Views\Questions\Delete.cshtml" />
+    <Content Include="Views\Questions\Details.cshtml" />
+    <Content Include="Views\Questions\Edit.cshtml" />
+    <Content Include="Views\Questions\Index.cshtml" />
+    <Content Include="Views\Questions\CreateNew.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
