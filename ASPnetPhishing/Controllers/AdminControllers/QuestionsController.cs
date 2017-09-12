@@ -22,19 +22,36 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             return View(questions.ToList());
         }
 
-        // POST: Question/Answer
-        public ActionResult Answer(string answer, int? id)
+        // GET: Question/Answer
+        public ActionResult Answer(int? id)
         {
-            if (answer == null || id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             else
             {
-                db.Questions.Find(id).Answer = answer;
-                db.Questions.Find(id).IsAnswered = true;
+                Question quest = db.Questions.Find(id);
+                return View(quest);
+            }
+            
+        }
+
+        // POST: Question/Answer
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Answer([Bind(Include ="Id, Answer")] Question question)
+        {
+            if (question == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                db.Questions.Find(question.Id).Answer = question.Answer;
+                db.Questions.Find(question.Id).IsAnswered = true;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Questions"); 
+                return RedirectToAction("Index", "Questions");
             }
         }
 
@@ -44,16 +61,21 @@ namespace ASPnetPhishing.Controllers.AdminControllers
             Question q = new Question();
             q.CustomerId = User.Identity.GetUserId();
             q.IsAnswered = false;
-            db.Questions.Add(q);
             return View(q);
         }
 
         //POST: Question/CreateNew
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateNew(Question q)
+        public ActionResult CreateNew([Bind(Include ="Id, CustomerId, Question1")] Question q)
         {
-            // code this!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (ModelState.IsValid)
+            {
+                db.Questions.Add(q);
+                db.SaveChanges();
+
+                ViewBag.QuestionConfirm = "Thank you for your interest in us. We will reply your question as soon as possible.";
+            }
             return View();
         }
 

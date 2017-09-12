@@ -11,12 +11,15 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Question
     {
         public int Id { get; set; }
         public string CustomerId { get; set; }
+        [Required]
         public string Question1 { get; set; }
+        [Required]
         public string Answer { get; set; }
         public bool IsAnswered { get; set; }
     

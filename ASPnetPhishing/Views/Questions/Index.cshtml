@@ -8,13 +8,15 @@
 <h2>Customer Questions</h2>
 
 <hr style="border-top: 2px solid black;" />
+
+<hr style="border-top: 2px solid black;" />
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+            Customer
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Question1)
+            Question
         </th>
         <th></th>
     </tr>
@@ -22,13 +24,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+            @Html.DisplayFor(modelItem => item.AspNetUser.UserName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Question1)
         </td>
         <td>
-            @Html.ActionLink("Answer", "Answer", new { id=item.Id })
+            @Html.ActionLink("Answer", "Answer", new { id=item.Id }, htmlAttributes: new { @class = "btn btn-success" })
         </td>
     </tr>
 }
