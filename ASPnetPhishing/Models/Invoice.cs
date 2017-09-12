@@ -29,7 +29,7 @@ namespace ASPnetPhishing.Models
         public string UserID { get; set; }
         public Nullable<int> PaymentId { get; set; }
         public Nullable<int> ShippingId { get; set; }
-    
+
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual PaymentRecord PaymentRecord { get; set; }
         public virtual Shipping Shipping { get; set; }

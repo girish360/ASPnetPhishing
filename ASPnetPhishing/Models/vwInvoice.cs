@@ -12,7 +12,7 @@ namespace ASPnetPhishing.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+
     public partial class vwInvoice
     {
         public int Invoice_Number { get; set; }
@@ -21,12 +21,16 @@ namespace ASPnetPhishing.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Invoice_Total { get; set; }
         public string Customer_Email { get; set; }
+        [DisplayFormat(DataFormatString = "{0:####-####-####-####}")]
         public string Card_Number { get; set; }
         public string Ship_To { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Zip_Code { get; set; }
+        [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone number.")]
+        [DisplayFormat(DataFormatString = "{0:###-###-####}")]
         public string Phone { get; set; }
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Please enter a valid Email address.")]
         public string Email { get; set; }
     }
 }

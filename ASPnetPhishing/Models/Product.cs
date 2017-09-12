@@ -12,7 +12,7 @@ namespace ASPnetPhishing.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +20,7 @@ namespace ASPnetPhishing.Models
         {
             this.LineItems = new HashSet<LineItem>();
         }
-    
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -30,7 +30,7 @@ namespace ASPnetPhishing.Models
         public decimal Cost { get; set; }
         public int CategoryId { get; set; }
         public string ImageFilename { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LineItem> LineItems { get; set; }
         public virtual ProductCategory ProductCategory { get; set; }

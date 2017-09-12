@@ -232,7 +232,7 @@
       <DependentUpon>AdminModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>QuestionModel.tt</DependentUpon>
+      <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CardRecord.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
@@ -256,22 +256,7 @@
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Question.cs">
-      <DependentUpon>QuestionModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\QuestionModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuestionModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\QuestionModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuestionModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\QuestionModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuestionModel.edmx</DependentUpon>
+      <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Shipping.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
@@ -347,16 +332,6 @@
       <DependentUpon>AdminModel.edmx</DependentUpon>
       <LastGenOutput>AdminModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\QuestionModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QuestionModel.edmx</DependentUpon>
-      <LastGenOutput>QuestionModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\QuestionModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QuestionModel.edmx</DependentUpon>
-      <LastGenOutput>QuestionModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -368,13 +343,6 @@
     </EntityDeploy>
     <Content Include="Models\AdminModel.edmx.diagram">
       <DependentUpon>AdminModel.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\QuestionModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QuestionModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\QuestionModel.edmx.diagram">
-      <DependentUpon>QuestionModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

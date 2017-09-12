@@ -32,6 +32,7 @@ namespace ASPnetPhishing.Models
         public virtual DbSet<PaymentRecord> PaymentRecords { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Shipping> Shippings { get; set; }
         public virtual DbSet<vwInvoice> vwInvoices { get; set; }
     }

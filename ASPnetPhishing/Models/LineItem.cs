@@ -12,7 +12,7 @@ namespace ASPnetPhishing.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+
     public partial class LineItem
     {
         public int LineItemId { get; set; }
@@ -40,7 +40,7 @@ namespace ASPnetPhishing.Models
 
         private void SetLineTotal()
         {
-            this.LineTotal = this.qty * this.Product.Price;            
+            this.LineTotal = this.qty * this.Product.Price;
         }
 
         public LineItem()
@@ -54,7 +54,7 @@ namespace ASPnetPhishing.Models
             this.qty = qty;
             this.Product = product;
         }
-    
+
         public virtual Invoice Invoice { get; set; }
         private Product product;
         public virtual Product Product

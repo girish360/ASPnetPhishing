@@ -12,7 +12,7 @@ namespace ASPnetPhishing.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+
     public partial class Shipping
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +20,7 @@ namespace ASPnetPhishing.Models
         {
             this.Invoices = new HashSet<Invoice>();
         }
-    
+
         public int Id { get; set; }
         public string CustomerId { get; set; }
         [Required]
@@ -43,7 +43,7 @@ namespace ASPnetPhishing.Models
         [Required]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Please enter a valid Email address.")]
         public string ShippingEmail { get; set; }
-    
+
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoice> Invoices { get; set; }

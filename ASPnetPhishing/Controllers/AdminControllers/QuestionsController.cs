@@ -13,7 +13,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
 {
     public class QuestionsController : Controller
     {
-        private QuestionEntity db = new QuestionEntity();
+        private AdminConnection db = new AdminConnection();
 
         // GET: Questions
         public ActionResult Index()

@@ -123,7 +123,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
                 Invoice invoice = (Invoice)Session["EditInvoice"];
                 LineItem li = new LineItem();
                 li.InvoiceId = invoice.Id;
-                li.Qty = qty;
+                li.Qty = Convert.ToInt32(qty);
                 li.ProductId = Convert.ToInt32(id);
                 li.Product = db.Products.Find(li.ProductId);
 

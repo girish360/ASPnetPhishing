@@ -85,6 +85,16 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryName" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Question" Type="text" Nullable="false" />
+          <Property Name="Answer" Type="text" />
+          <Property Name="IsAnswered" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Shipping">
           <Key>
             <PropertyRef Name="Id" />
@@ -221,6 +231,18 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_question_aspnetusers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_shipping_aspnetuser">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
@@ -241,6 +263,7 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
           <EntitySet Name="PaymentRecord" EntityType="Self.PaymentRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vwInvoice" EntityType="Self.vwInvoice" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -289,6 +312,10 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
             <End Role="ProductCategory" EntitySet="ProductCategory" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
+          <AssociationSet Name="fk_question_aspnetusers" Association="Self.fk_question_aspnetusers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
           <AssociationSet Name="fk_shipping_aspnetuser" Association="Self.fk_shipping_aspnetuser">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Shipping" EntitySet="Shipping" />
@@ -317,6 +344,7 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CardRecords" Relationship="Self.fk_cardrecord_aspnetusers" FromRole="AspNetUsers" ToRole="CardRecord" />
           <NavigationProperty Name="Invoices" Relationship="Self.fk_invoice_user" FromRole="AspNetUsers" ToRole="Invoice" />
+          <NavigationProperty Name="Questions" Relationship="Self.fk_question_aspnetusers" FromRole="AspNetUsers" ToRole="Question" />
           <NavigationProperty Name="Shippings" Relationship="Self.fk_shipping_aspnetuser" FromRole="AspNetUsers" ToRole="Shipping" />
         </EntityType>
         <EntityType Name="CardRecord">
@@ -395,6 +423,17 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
           <Property Name="CategoryName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.fk_product_productcategory" FromRole="ProductCategory" ToRole="Product" />
         </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Question1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsAnswered" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_question_aspnetusers" FromRole="Question" ToRole="AspNetUsers" />
+        </EntityType>
         <EntityType Name="Shipping">
           <Key>
             <PropertyRef Name="Id" />
@@ -456,6 +495,18 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
             </Principal>
             <Dependent Role="Invoice">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_question_aspnetusers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="CustomerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -551,6 +602,7 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
           <EntitySet Name="PaymentRecords" EntityType="Self.PaymentRecord" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
           <EntitySet Name="Shippings" EntityType="Self.Shipping" />
           <EntitySet Name="vwInvoices" EntityType="Self.vwInvoice" />
           <AssociationSet Name="fk_cardrecord_aspnetusers" Association="Self.fk_cardrecord_aspnetusers">
@@ -560,6 +612,10 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
           <AssociationSet Name="fk_invoice_user" Association="Self.fk_invoice_user">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="fk_question_aspnetusers" Association="Self.fk_question_aspnetusers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Question" EntitySet="Questions" />
           </AssociationSet>
           <AssociationSet Name="fk_shipping_aspnetuser" Association="Self.fk_shipping_aspnetuser">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -680,6 +736,17 @@ warning 6002: The table/view 'aspnet-ASPnetPhishing-20170817095321.dbo.vwInvoice
               <MappingFragment StoreEntitySet="ProductCategory">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="Model.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Question1" ColumnName="Question" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="IsAnswered" ColumnName="IsAnswered" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -12,7 +12,7 @@ namespace ASPnetPhishing.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+
     public partial class CardRecord
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,12 +20,12 @@ namespace ASPnetPhishing.Models
         {
             this.PaymentRecords = new HashSet<PaymentRecord>();
         }
-    
+
         public int Id { get; set; }
         public string CustomerId { get; set; }
         [Required]
         [RegularExpression("([0-9]+)", ErrorMessage = "Card number must be a numeric entry")]
-        [StringLength(16, MinimumLength = 16, ErrorMessage ="Card number must be 16 digit long.")]
+        [StringLength(16, MinimumLength = 16, ErrorMessage = "Card number must be 16 digit long.")]
         [CreditCard(ErrorMessage = "Please enter a valid credit/debit card number.")]
         public string CardNumber { get; set; }
         [Required]
@@ -49,7 +49,7 @@ namespace ASPnetPhishing.Models
 
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
         public string BillingEmail { get; set; }
-    
+
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PaymentRecord> PaymentRecords { get; set; }
