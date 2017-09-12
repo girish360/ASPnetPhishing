@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ASPnetPhishing.Models;
+using System.IO;
 
 namespace ASPnetPhishing.Controllers.AdminControllers
 {
@@ -48,8 +49,17 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Cost,CategoryId,ImageFilename")] Product product)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Cost,CategoryId,ImageFilename")] Product product, HttpPostedFileBase image)
         {
+            if(image != null)
+            {
+                var filename = image.FileName;
+                var filePath = Server.MapPath("~/Images");
+                string savedFileName = Path.Combine(filePath, filename);
+                image.SaveAs(savedFileName);
+                product.ImageFilename = filename;
+            }
+
             if (ModelState.IsValid)
             {
                 db.Products.Add(product);
