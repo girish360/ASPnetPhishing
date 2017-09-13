@@ -13,16 +13,16 @@
         <p>
             We carry the best fishing gear in all of Nebraska at the most competitive prices. We also ship to all of the United States!
         </p>
-        <p><a class="btn btn-default" href="@Html.ActionLink("Products »", "Index", "ProductLists")" /></p>
+        <p>@Html.ActionLink("Products »", "Index", "ProductLists", null, htmlAttributes: new { @class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>Apply for a permit</h2>
         <p>Easily and quickly apply for a fishing permit!</p>
-        <p><a class="btn btn-default" href="@Html.ActionLink("Permit »", "Index", "Permit")" /></p>
+        <p>@Html.ActionLink("Permit »", "Index", "Permit", null, htmlAttributes: new { @class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>Ask a question</h2>
         <p>Ask our staff a question to get the fastest answers!</p>
-        <p><a class="btn btn-default" href="@Html.ActionLink("Ask Us »", "CreateNew", "Questions")" /></p>
+        <p>@Html.ActionLink("Ask Us »", "CreateNew", "Questions", null, htmlAttributes: new { @class = "btn btn-default" })</p>
     </div>
 </div>
