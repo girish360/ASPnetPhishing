@@ -66,7 +66,7 @@ namespace ASPnetPhishing.Models
     {
         public string Name { get; set; }
 
-        [Required]
+        
         [Display(Name = "Username")]
         public string Username { get; set; }
 

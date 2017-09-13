@@ -6,14 +6,16 @@
             <li>@Html.ActionLink("Invoices", "Index", "Invoices")</li>
             <li>@Html.ActionLink("Card Records", "Index", "CardRecords")</li>
             <li>@Html.ActionLink("Shipping", "Index", "Shippings")</li>
-            <li>@Html.ActionLink("Products", "Index", "Products")</li>
-            <li>@Html.ActionLink("Product Categories", "Index", "ProductCategories")</li>
+            @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+            {
+                <li>@Html.ActionLink("Products", "Index", "Products")</li>
+                <li>@Html.ActionLink("Product Categories", "Index", "ProductCategories")</li>
+            }            
             <li>@Html.ActionLink("Customer Questions", "Index", "Questions")</li>
-            @if (User.IsInRole("SuperUser"))
+            @if (User.IsInRole("Admin"))
             {
                 <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
-            }
-            
+            }            
         </ul>
     </div>
 }

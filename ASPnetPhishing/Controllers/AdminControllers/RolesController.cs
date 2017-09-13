@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ASPnetPhishing.Controllers.AdminControllers
 {
-    [Authorize(Roles = "SuperUser")]
+    [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         private ApplicationDbContext db;

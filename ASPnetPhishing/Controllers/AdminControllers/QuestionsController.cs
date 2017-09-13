@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace ASPnetPhishing.Controllers.AdminControllers
 {
+    [Authorize(Roles ="Employee, Manager, Admin")]
     public class QuestionsController : Controller
     {
         private AdminConnection db = new AdminConnection();
@@ -56,6 +57,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         }
 
         // GET: Question/CreateNew
+        [AllowAnonymous]
         public ActionResult CreateNew()
         {
             if (User.Identity.GetUserId() == null)
@@ -74,6 +76,7 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         //POST: Question/CreateNew
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult CreateNew([Bind(Include ="CustomerId, Question1")] Question q)
         {
             q.AspNetUser = db.AspNetUsers.Find(q.CustomerId);

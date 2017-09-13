@@ -27,7 +27,7 @@
 
     <div class="container body-content" style="background-color:#E6EDE6;min-height:700px;margin-bottom:0px;">
         @using Microsoft.AspNet.Identity
-        @if (Request.IsAuthenticated)
+        @if (User.IsInRole("Employee") || User.IsInRole("Manager") || User.IsInRole("Admin"))
         {
             @Html.Partial("_ManagerNav")
         }
