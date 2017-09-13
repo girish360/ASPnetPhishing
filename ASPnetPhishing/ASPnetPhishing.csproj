@@ -206,6 +206,7 @@
     <Compile Include="Controllers\AdminControllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\AdminControllers\ProductsController.cs" />
     <Compile Include="Controllers\AdminControllers\QuestionsController.cs" />
+    <Compile Include="Controllers\AdminControllers\RolesController.cs" />
     <Compile Include="Controllers\AdminControllers\ShippingsController.cs" />
     <Compile Include="Controllers\AdminControllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="Models\Question.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RestrictedMenuHelper.cs" />
     <Compile Include="Models\Shipping.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
@@ -457,6 +459,11 @@
     <Content Include="Views\Questions\Index.cshtml" />
     <Content Include="Views\Questions\CreateNew.cshtml" />
     <Content Include="Views\Questions\Answer.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Account\RegisterRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -9,6 +9,11 @@
             <li>@Html.ActionLink("Products", "Index", "Products")</li>
             <li>@Html.ActionLink("Product Categories", "Index", "ProductCategories")</li>
             <li>@Html.ActionLink("Customer Questions", "Index", "Questions")</li>
+            @if (User.IsInRole("SuperUser"))
+            {
+                <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+            }
+            
         </ul>
     </div>
 }

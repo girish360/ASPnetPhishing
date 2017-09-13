@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -17,9 +18,11 @@ namespace ASPnetPhishing.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db;
 
         public AccountController()
         {
+            db = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -170,6 +173,33 @@ namespace ASPnetPhishing.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        // GET: /Account/RegisterRole
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult RegisterRole()
+        {
+            ViewBag.Name = new SelectList(db.Roles.ToList(), "Name", "Name");
+            ViewBag.UserName = new SelectList(db.Users.ToList(), "UserName", "UserName");
+            return View();
+        }
+
+        // POST: /Account/RegisterRole - POST Method
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterRole(RegisterViewModel model, ApplicationUser user)
+        {
+            var userId = db.Users.Where(u => u.UserName == user.UserName).Select(s => s.Id);
+            string updateId = "";
+            foreach ( var i in userId)
+            {
+                updateId = i.ToString();
+            }
+            // assigning user here
+            await this.UserManager.AddToRoleAsync(updateId, model.Name);
+            return RedirectToAction("Index", "Home");
         }
 
         //
