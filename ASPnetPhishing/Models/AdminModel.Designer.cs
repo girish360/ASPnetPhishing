@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\john_soerjawitaka\Source\Repos\ASPnetPhishing\ASPnetPhishing\Models\AdminModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\johns_a0t36nc\Source\Repos\ASPnetPhishing\ASPnetPhishing\Models\AdminModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

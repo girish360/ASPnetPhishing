@@ -11,18 +11,12 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Question
+    
+    public partial class C__MigrationHistory
     {
-        public int Id { get; set; }
-        public string CustomerId { get; set; }
-        [Required]
-        public string Question1 { get; set; }
-        
-        public string Answer { get; set; }
-        public bool IsAnswered { get; set; }
-
-        public virtual AspNetUser AspNetUser { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

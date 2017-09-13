@@ -13,8 +13,17 @@
     <h4>Card Record</h4>
     <br />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.CardNumber)
+            Customer
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.UserName)
+        </dd>
+
+        <dt>
+            Card Number
         </dt>
 
         <dd>
@@ -46,7 +55,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BillingCity)
+            City
         </dt>
 
         <dd>
@@ -54,7 +63,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BillingState)
+            State
         </dt>
 
         <dd>
@@ -62,7 +71,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BillingZip)
+            Zip Code
         </dt>
 
         <dd>
@@ -70,19 +79,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BillingEmail)
+            Billing Email
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.BillingEmail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUser.Email)
         </dd>
 
     </dl>

@@ -11,18 +11,13 @@ namespace ASPnetPhishing.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Question
+    
+    public partial class AspNetUserLogin
     {
-        public int Id { get; set; }
-        public string CustomerId { get; set; }
-        [Required]
-        public string Question1 { get; set; }
-        
-        public string Answer { get; set; }
-        public bool IsAnswered { get; set; }
-
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
+    
         public virtual AspNetUser AspNetUser { get; set; }
     }
 }

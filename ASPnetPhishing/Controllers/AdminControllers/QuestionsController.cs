@@ -58,24 +58,29 @@ namespace ASPnetPhishing.Controllers.AdminControllers
         // GET: Question/CreateNew
         public ActionResult CreateNew()
         {
-            Question q = new Question();
-            q.CustomerId = User.Identity.GetUserId();
-            q.IsAnswered = false;
-            return View(q);
+            if (User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                Question q = new Question();
+                q.CustomerId = User.Identity.GetUserId();
+                q.IsAnswered = false;
+                return View(q);
+            }            
         }
 
         //POST: Question/CreateNew
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateNew([Bind(Include ="Id, CustomerId, Question1")] Question q)
+        public ActionResult CreateNew([Bind(Include ="CustomerId, Question1")] Question q)
         {
-            if (ModelState.IsValid)
-            {
-                db.Questions.Add(q);
-                db.SaveChanges();
+            q.AspNetUser = db.AspNetUsers.Find(q.CustomerId);
+            db.Questions.Add(q);
+            db.SaveChanges();
 
-                ViewBag.QuestionConfirm = "Thank you for your interest in us. We will reply your question as soon as possible.";
-            }
+            ViewBag.QuestionConfirm = "Thank you for your interest in us. We will reply your question as soon as possible.";
             return View();
         }
 

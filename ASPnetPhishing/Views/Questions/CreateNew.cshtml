@@ -16,7 +16,6 @@
     <div class="form-horizontal">
         <h4>Question</h4>
         <br />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.CustomerId)
         @Html.HiddenFor(model => model.IsAnswered)
 
@@ -27,7 +26,7 @@
                 @Html.ValidationMessageFor(model => model.Question1, "", new { @class = "text-danger" })
                 @if (ViewBag.QuestionConfirm != null)
                 {
-                    <h4 class="text-success">@ViewBag.questionConfirm</h4>
+                    <h4 class="text-success">@ViewBag.QuestionConfirm</h4>
                 }
             </div>
         </div>
